@@ -1,4 +1,14 @@
+@use "sass-rem" as rem;
+
 .tasks-container {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    margin-top: rem.convert(24px);
+    flex-wrap: wrap;
+    grid-gap: 20px;
+
+    @media (min-width: 320px) and (max-width: 640px) {
+        flex-direction: column;
+    }
 }

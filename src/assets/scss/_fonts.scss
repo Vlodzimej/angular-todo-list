@@ -6,6 +6,13 @@
     src: url(assets/font/Montserrat-VariableFont_wght.ttf) format("truetype");
 }
 
+@each $name, $properties in variables.$font-sizes {
+    .#{$name} {
+      font-size: map-get($properties, size);
+      line-height: map-get($properties, line-height);
+    }
+  }
+
 @mixin responsive-text-class(
     $class,
     $desktop-class: null,

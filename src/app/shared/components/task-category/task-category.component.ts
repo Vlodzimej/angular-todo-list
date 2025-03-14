@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { ITaskCategory } from '@models';
 
 @Component({
   selector: 'task-category',
@@ -9,8 +10,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TaskCategoryComponent implements OnInit {
 
-  @Input() name: string = "";
-  @Input() count: number = 0;
+  @Input() model!: ITaskCategory
 
   constructor() { }
 
