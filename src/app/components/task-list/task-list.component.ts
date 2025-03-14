@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { ITaskItem, ITaskCategory } from '@models';
-import { TaskStatus } from '@enums';
-import { TaskCategories } from '@data';
 import { CommonModule } from '@angular/common';
-import { TaskCategoryComponent } from "../../shared/components/task-category/task-category.component";
+import { TaskCategoryComponent } from '@shared';
 
 @Component({
   selector: 'task-list',

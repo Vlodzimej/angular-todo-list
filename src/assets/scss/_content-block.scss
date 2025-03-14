@@ -3,6 +3,14 @@
 @use "fonts";
  
 .content-block {
+
+    border: 1px solid variables.$gray-light;
+    background-color: variables.$background-primary;
+    border-radius: rem.convert(16px);
+    padding: rem.convert(24px);
+    flex-grow: 1;
+    flex-basis: 50%;
+
     .title {
         @include fonts.responsive-text-class(
             "text-big",
@@ -12,10 +20,6 @@
             $phone-class: "text-big"
         );
         font-weight: variables.$font-weight-bold;
+        margin-bottom: rem.convert(24px);
     }
-
-    border: 1px solid variables.$gray-light;
-    background-color: variables.$background-primary;
-    border-radius: rem.convert(16px);
-    padding: rem.convert(24px);
 }

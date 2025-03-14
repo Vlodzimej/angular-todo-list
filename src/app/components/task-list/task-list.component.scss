@@ -1,14 +1,16 @@
 @use "sass-rem" as rem;
+@use "content-block";
 
-.tasks-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: rem.convert(24px);
-    flex-wrap: wrap;
-    grid-gap: 20px;
+:host {
+    @extend .content-block;
+    .tasks-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        grid-gap: 20px;
 
-    @media (min-width: 320px) and (max-width: 640px) {
-        flex-direction: column;
+        @media (min-width: 320px) and (max-width: 640px) {
+            flex-direction: column;
+        }
     }
 }

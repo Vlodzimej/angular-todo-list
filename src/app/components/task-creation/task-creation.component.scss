@@ -1,0 +1,22 @@
+@use "sass-rem" as rem;
+@use "content-block";
+@use "forms";
+
+:host {
+    @extend .content-block;
+    .form-container {
+        display: flex;
+        button {
+            background-image: url("/assets/svg/add_button.svg");
+            width: rem.convert(44px);
+            height: rem.convert(44px);
+            margin-right: rem.convert(15px);
+        }
+        
+        input {
+            @extend .task-name-input;
+            flex-grow: 1;
+            flex-shrink: 0;
+        }
+    }
+}

@@ -1,0 +1,1 @@
+export * from './task-category/task-category.component';
