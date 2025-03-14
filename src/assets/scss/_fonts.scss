@@ -1,0 +1,50 @@
+@use "sass-rem" as rem;
+@use "variables";
+
+@font-face {
+    font-family: "Montserrat";
+    src: url(assets/font/Montserrat-VariableFont_wght.ttf) format("truetype");
+}
+
+@mixin responsive-text-class(
+    $class,
+    $desktop-class: null,
+    $laptop-class: null,
+    $tablet-class: null,
+    $phone-class: null
+) {
+    font-size: map-get(map-get(variables.$font-sizes, $class), size);
+    line-height: map-get(map-get(variables.$font-sizes, $class), line-height);
+
+    // desktop - 1221+
+    @if $desktop-class {
+        @media (min-width: 1221px) {
+            font-size: map-get(map-get(variables.$font-sizes, $desktop-class), size);
+            line-height: map-get(map-get(variables.$font-sizes, $desktop-class), line-height);
+        }
+    }
+
+    // laptop - 993-1220
+    @if $laptop-class {
+        @media (min-width: 993px) and (max-width: 1220px) {
+            font-size: map-get(map-get(variables.$font-sizes, $laptop-class), size);
+            line-height: map-get(map-get(variables.$font-sizes, $laptop-class), line-height);
+        }
+    }
+
+    // tablet - 641-992
+    @if $tablet-class {
+        @media (min-width: 641px) and (max-width: 992px) {
+            font-size: map-get(map-get(variables.$font-sizes, $tablet-class), size);
+            line-height: map-get(map-get(variables.$font-sizes, $tablet-class), line-heightg);
+        }
+    }
+
+    // phone - 320-640
+    @if $phone-class {
+        @media (min-width: 320px) and (max-width: 640px) {
+            font-size: map-get(map-get(variables.$font-sizes, $phone-class), size);
+            line-height: map-get(map-get(variables.$font-sizes, $phone-class), line-height);
+        }
+    }
+}

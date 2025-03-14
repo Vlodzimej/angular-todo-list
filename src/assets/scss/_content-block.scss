@@ -1,0 +1,25 @@
+@use "sass-rem" as rem;
+@use "../variables";
+@use "../fonts";
+
+
+.content-block {
+    .common-block {
+        border: 1px solid variables.$gray-light;
+        background-color: variables.$background-primary;
+    }
+
+    .title {
+        @include fonts.responsive-text-class(
+            "text-big",
+            $desktop-class: "text-lg",
+            $laptop-class: "text-lg",
+            $tablet-class: "text-big",
+            $phone-class: "text-big"
+        );
+        font-weight: variables.$font-weight-bold;
+    }
+
+    border-radius: rem.convert(16px);
+    padding: rem.convert(24px);
+}
