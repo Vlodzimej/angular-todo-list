@@ -8,8 +8,6 @@
     background-color: variables.$background-primary;
     border-radius: rem.convert(16px);
     padding: rem.convert(24px);
-    flex-grow: 1;
-    flex-basis: 50%;
 
     .title {
         @include fonts.responsive-text-class(

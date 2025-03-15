@@ -1,0 +1,39 @@
+@use "sass-rem" as rem;
+@use "variables";
+@use "fonts";
+
+:host {
+    display: flex;
+    flex-direction: column;
+
+    .row-wrapper {
+        display: flex;
+        flex-direction: column;
+        .row {
+            display: flex;
+            flex-shrink: 1;
+            justify-content: space-between;
+            .cell {
+                @extend .text-md;
+                .column-title {
+                    @extend .text-big;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+
+    .divider {
+        height: 1px;
+        background-color: variables.$gray-light;
+        margin: rem.convert(10px 0);
+        opacity: 60%;
+    }
+
+    .row-wrapper.header {
+        margin: rem.convert(0 0 38px 0);
+    }
+    .row-wrapper.last {
+        margin-bottom: rem.convert(16px);
+    }
+}

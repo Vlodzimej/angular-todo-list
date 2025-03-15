@@ -21,6 +21,7 @@
     "module": "ES2022",
     "paths": {
       "@components": ["app/components"],
+      "@services": ["app/services"],
       "@shared": ["app/shared"],
       "@enums": ["app/enums"],
       "@models": ["app/models"],

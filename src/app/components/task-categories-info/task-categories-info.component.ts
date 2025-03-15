@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { TaskService } from '../../services/task.service';
-import { ITaskItem, ITaskCategory } from '@models';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskCategoryComponent } from '@shared';
+import { ITaskCategory } from '@models';
 
 @Component({
   selector: 'task-categories-info',
@@ -12,16 +11,11 @@ import { TaskCategoryComponent } from '@shared';
 })
 export class TaskCategoriesInfoComponent implements OnInit {
 
-  taskList: ITaskItem[] = []
-  taskCategories: ITaskCategory[] = []
+  @Input({required: true}) taskCategories!: ITaskCategory[] 
 
-  constructor(private taskService: TaskService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.taskService.fetchTasks().subscribe(data => {
-      this.taskList = data
-    })
 
-    this.taskCategories = this.taskService.getTaskCategories()
   }
 }

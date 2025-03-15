@@ -1,6 +1,8 @@
-<p class="title">Текущие задачи</p>
-<div class="tasks-container">
-  <ng-container *ngFor="let category of taskCategories">
-    <task-category [model]="category"></task-category>
-  </ng-container>
+<div class="content-block">
+  <p class="title">Текущие задачи</p>
+  <div class="tasks-container">
+    <ng-container *ngFor="let category of taskCategories">
+      <task-category [model]="category"></task-category>
+    </ng-container>
+  </div>
 </div>

@@ -1,0 +1,71 @@
+@use "sass-rem" as rem;
+@use "variables";
+@use "fonts";
+
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .main-container {
+        @media (min-width: 993px) {
+            width: 1200px;
+        }
+
+        @media (min-width: 641px) and (max-width: 992px) {
+            width: 640px;
+        }
+
+        @media (min-width: 320px) and (max-width: 640px) {
+            width: 343px;
+        }   
+
+        .header {
+            margin-top: rem.convert(64px);
+            margin-bottom: rem.convert(48px);
+
+            // tablet
+            @media (min-width: 641px) and (max-width: 992px) {
+                margin-top: rem.convert(48px);
+                margin-bottom: rem.convert(40px);
+            }
+
+            // phone
+            @media (min-width: 320px) and (max-width: 640px) {
+                margin-top: rem.convert(32px);
+                margin-bottom: rem.convert(32px);
+            }
+
+            .title {
+                @include fonts.responsive-text-class(
+                    "text-lg",
+                    $desktop-class: "text-xxl",
+                    $laptop-class: "text-xxl",
+                    $tablet-class: "text-xl",
+                    $phone-class: "text-lg"
+                );
+
+                font-weight: variables.$font-weight-bold;
+                justify-content: left;
+            }
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+
+            @media (min-width: 993px){
+                row-gap: rem.convert(40px);
+            }
+            @media (max-width: 992px) {
+                row-gap: rem.convert(40px);
+                flex-direction: column;
+            }
+
+            @media (min-width: 320px) and (max-width: 640px) {
+                row-gap: 24px;
+            }   
+        }
+    }
+}

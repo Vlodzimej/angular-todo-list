@@ -1,13 +1,17 @@
 @use "sass-rem" as rem;
-@use "content-block";
 
 :host {
-    @extend .content-block;
+    flex-basis: 50%;
+    padding-right: rem.convert(13px);
+    // tablet, phone
+    @media (max-width: 992px) {
+        padding: 0;
+    }
+
     .tasks-container {
         display: flex;
-        flex-direction: row;
         justify-content: space-between;
-        grid-gap: 20px;
+        row-gap: rem.convert(24px);
 
         @media (min-width: 320px) and (max-width: 640px) {
             flex-direction: column;
