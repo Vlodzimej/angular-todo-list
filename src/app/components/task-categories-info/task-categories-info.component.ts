@@ -5,12 +5,12 @@ import { CommonModule } from '@angular/common';
 import { TaskCategoryComponent } from '@shared';
 
 @Component({
-  selector: 'task-list',
-  templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.scss'],
+  selector: 'task-categories-info',
+  templateUrl: './task-categories-info.component.html',
+  styleUrls: ['./task-categories-info.component.scss'],
   imports: [CommonModule, TaskCategoryComponent]
 })
-export class TaskListComponent implements OnInit {
+export class TaskCategoriesInfoComponent implements OnInit {
 
   taskList: ITaskItem[] = []
   taskCategories: ITaskCategory[] = []

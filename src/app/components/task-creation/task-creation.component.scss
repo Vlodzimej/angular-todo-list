@@ -17,6 +17,7 @@
             @extend .task-name-input;
             flex-grow: 1;
             flex-shrink: 0;
+            height: rem.convert(48px);
         }
     }
 }

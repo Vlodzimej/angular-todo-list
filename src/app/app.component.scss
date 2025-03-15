@@ -24,6 +24,19 @@
         .header {
             margin-top: rem.convert(64px);
             margin-bottom: rem.convert(48px);
+
+            // tablet
+            @media (min-width: 641px) and (max-width: 992px) {
+                margin-top: rem.convert(48px);
+                margin-bottom: rem.convert(40px);
+            }
+
+            // phone
+            @media (min-width: 320px) and (max-width: 640px) {
+                margin-top: rem.convert(32px);
+                margin-bottom: rem.convert(32px);
+            }
+
             .title {
                 @include fonts.responsive-text-class(
                     "text-lg",
