@@ -9,13 +9,6 @@ import { ITaskCategory } from '@models';
   styleUrls: ['./task-categories-info.component.scss'],
   imports: [CommonModule, TaskCategoryComponent]
 })
-export class TaskCategoriesInfoComponent implements OnInit {
-
+export class TaskCategoriesInfoComponent {
   @Input({required: true}) taskCategories!: ITaskCategory[] 
-
-  constructor() { }
-
-  ngOnInit() {
-
-  }
 }
