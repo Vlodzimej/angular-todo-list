@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TableCellType } from '@enums';
 import { ITableModel } from 'app/models/tabel-model';
 import { TableCellStateComponent } from "./table-cell-state/table-cell-state.component";
