@@ -4,7 +4,10 @@
   </div>
   <div class="content">
     <task-categories-info [taskCategories]="taskCategories"></task-categories-info>
-    <task-creation></task-creation>
-    <task-list [taskList]="taskList"></task-list>
+    <task-creation (addTaskEvent)="handleAddTaskEvent($event)"></task-creation>
+    <task-list [taskList]="taskList" [itemsCountToShow]="currentItemsNumberToShow"></task-list>
+  </div>
+  <div class="footer">
+    <button class="todo-button" (click)="moreButtonClick()" *ngIf="taskList.length > 5">Показать еще</button>
   </div>
 </div>

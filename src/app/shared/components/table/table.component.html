@@ -1,4 +1,4 @@
-<div *ngFor="let row of data.rows; let first = first; let last = last;" class="row-wrapper"
+<div *ngFor="let row of data.rows | limitTo: limit + 1; let first = first; let last = last;" class="row-wrapper"
   [ngClass]="{'header': first, 'last': last}">
   <div class="row">
     <div *ngFor="let cell of row" class="cell" [ngStyle]="{'flex-basis': cell.size, 'justify-items': cell.align}">

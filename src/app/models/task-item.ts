@@ -5,7 +5,7 @@ import { TaskStatus } from "@enums"
  */
 export interface ITaskItem {
     /** Название */
-    name: string
+    value: string
     /** Статус */
     status: TaskStatus
 }
