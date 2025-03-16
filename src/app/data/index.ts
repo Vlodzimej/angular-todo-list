@@ -1,2 +1,2 @@
-export * from "./task-categories";
+export * from './task-statuses';
 export * from './todo-table';

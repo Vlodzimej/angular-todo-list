@@ -1,8 +1,15 @@
 @use "sass-rem" as rem;
 @use "variables";
 
-.task-name-input {
-    border: 1px solid variables.$gray-light;
-    border-radius: rem.convert(12px);
-    padding: rem.convert(12px 16px);
+.form-container {
+    display: flex;
+
+    .text-input {
+        flex-grow: 1;
+        flex-shrink: 0;
+        height: rem.convert(48px);
+        border: 1px solid variables.$gray-light;
+        border-radius: rem.convert(12px);
+        padding: rem.convert(12px 16px);
+    }
 }

@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { TableCellStateComponent } from './table-cell-state.component';
+import { TaskStatusInfoComponent } from './task-status.component';
 
-describe('TableCellStateComponent', () => {
-  let component: TableCellStateComponent;
-  let fixture: ComponentFixture<TableCellStateComponent>;
+describe('TaskStatusInfoComponent', () => {
+  let component: TaskStatusInfoComponent;
+  let fixture: ComponentFixture<TaskStatusInfoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TableCellStateComponent ]
+      declarations: [ TaskStatusInfoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TableCellStateComponent);
+    fixture = TestBed.createComponent(TaskStatusInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

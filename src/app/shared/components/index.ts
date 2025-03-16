@@ -1,1 +1,3 @@
-export * from './task-category/task-category.component';
+export * from './task-status/task-status.component';
+export * from './table/table.component';
+export * from './popup/popup.component';

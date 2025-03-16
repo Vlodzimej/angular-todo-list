@@ -3,9 +3,9 @@
     <p class="title">ToDo List Scloud</p>
   </div>
   <div class="content">
-    <task-categories-info [taskCategories]="taskCategories"></task-categories-info>
+    <task-statuses-info [taskStatusItems]="taskStatusItems"></task-statuses-info>
     <task-creation (addTaskEvent)="handleAddTaskEvent($event)"></task-creation>
-    <task-list [taskList]="taskList" [itemsCountToShow]="currentItemsNumberToShow"></task-list>
+    <task-list [taskList]="taskList" [itemsCountToShow]="currentItemsNumberToShow" (showTaskDetails)="handleShowTaskDetails($event)"></task-list>
   </div>
   <div class="footer">
     <button class="todo-button" (click)="moreButtonClick()" *ngIf="taskList.length > 5">
@@ -13,3 +13,4 @@
     </button>
   </div>
 </div>
+<task-details (updateTaskItemOutput)="updateTaskItem($event)"></task-details>

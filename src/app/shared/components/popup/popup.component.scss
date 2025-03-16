@@ -1,0 +1,21 @@
+@use "sass-rem" as rem;
+@use "content-block";
+@use "fonts";
+
+.popup-content {
+    @extend .content-block;
+    padding: rem.convert(24px 16px);
+    width: rem.convert(375px);
+    .header {
+        display: flex;
+        .title {
+            @extend .text-lg;
+            flex-grow: 1;
+        }
+        .close-button {
+            background-image: url("/assets/svg/popup_close_button.svg");
+            width: rem.convert(32px);
+            height: rem.convert(32px);
+        }
+    }
+}

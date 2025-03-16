@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TaskStatus } from '@enums';
-import { ITaskCategory, ITaskItem } from '@models';
+import { ITaskItem } from '@models';
 import { BehaviorSubject, delay, Observable } from 'rxjs';
 
 @Injectable({
@@ -46,5 +46,15 @@ export class TaskService {
     this.data = [newTaskItem, ...this.data]
 
     return new BehaviorSubject(newTaskItem);
+  }
+
+  updateTask(taskItem: ITaskItem): Observable<ITaskItem | null> {
+    // TODO: Обращение к БД (напрямую, либо через REST API)
+    const index = this.data.findIndex(item => item.id == taskItem.id);
+    if (index != null) {
+      this.data[index] = taskItem;
+    }
+
+    return new BehaviorSubject(taskItem);
   }
 }
