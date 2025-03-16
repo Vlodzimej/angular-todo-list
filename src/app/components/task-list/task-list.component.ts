@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ITableCell, ITableModel, ITaskItem } from '@models';
 import { TableComponent } from '../../shared/components/table/table.component';
 import { TableCellType } from '@enums';
@@ -10,24 +10,25 @@ import { TodoTableHeaderRow } from '@data';
   styleUrls: ['./task-list.component.scss'],
   imports: [TableComponent],
 })
-export class TaskListComponent implements OnInit, DoCheck {
+export class TaskListComponent implements OnChanges {
   @Input() taskList: ITaskItem[] = [];
+  @Input() itemsCountToShow!: number
+  
   tableData: ITableModel = { rows: [] };
 
-  constructor() {}
-
-  ngDoCheck(): void {
-    this.tableData.rows = this.generateTableRows(this.taskList);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.hasOwnProperty('taskList')) {
+      const taskList = changes['taskList'].currentValue;
+      this.tableData.rows = this.generateTableRows(taskList);
+    }
   }
-
-  ngOnInit() {}
 
   generateTableRows(tasks: ITaskItem[]): ITableCell[][] {
     const dataRows: ITableCell[][] = tasks.map((item) => {
       {
         return [
           {
-            value: item.name,
+            value: item.value,
             align: 'left',
             type: TableCellType.TEXT,
           },
