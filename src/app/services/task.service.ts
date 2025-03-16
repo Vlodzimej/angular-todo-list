@@ -51,10 +51,15 @@ export class TaskService {
   updateTask(taskItem: ITaskItem): Observable<ITaskItem | null> {
     // TODO: Обращение к БД (напрямую, либо через REST API)
     const index = this.data.findIndex(item => item.id == taskItem.id);
-    if (index != null) {
+    if (index != -1) {
       this.data[index] = taskItem;
     }
 
     return new BehaviorSubject(taskItem);
+  }
+
+  removeTaskById(id: number): Observable<number | null> {
+    // TODO: Обращение к БД (напрямую, либо через REST API)
+    return new BehaviorSubject(id);
   }
 }

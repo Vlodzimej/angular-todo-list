@@ -16,6 +16,7 @@ export class TaskDetailsComponent {
   @ViewChild(PopupComponent) popup!: PopupComponent;
 
   @Output() updateTaskItemOutput = new EventEmitter<ITaskItem>();
+  @Output() removeTaskItemOutput = new EventEmitter<number>();
 
   taskItem!: ITaskItem;
   taskValueInput = new FormControl('');
@@ -53,7 +54,7 @@ export class TaskDetailsComponent {
 
   changeStatus(newStatus: TaskStatus) {
     if (newStatus != this.taskItem.status) {
-      this.currentStatus   = newStatus;
+      this.currentStatus = newStatus;
       this.updateTask();
     }
   }
@@ -70,7 +71,11 @@ export class TaskDetailsComponent {
 
   updateTask() {
     const newValue = this.taskValueInput.value ?? '';
-    const changedTaskItem = { ...this.taskItem, value: newValue, status: this.currentStatus };
+    const changedTaskItem = {
+      ...this.taskItem,
+      value: newValue,
+      status: this.currentStatus,
+    };
 
     this.taskService.updateTask(changedTaskItem).subscribe((result) => {
       if (result != null) {
@@ -80,5 +85,14 @@ export class TaskDetailsComponent {
     });
   }
 
-  handleRemoveButtonClick() {}
+  handleRemoveButtonClick() {
+    this.taskService
+      .removeTaskById(this.taskItem.id)
+      .subscribe((idToRemove) => {
+        if (idToRemove != null) {
+          this.removeTaskItemOutput.emit(this.taskItem.id);
+          this.popup.dismiss();
+        }
+      });
+  }
 }

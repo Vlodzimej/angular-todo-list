@@ -88,20 +88,37 @@ export class MainComponent implements OnInit {
     });
   }
 
-  updateTaskItem(changedTaskItem: ITaskItem) {
-    console.log(changedTaskItem)
-    const indexToUpdate = this.taskList.findIndex(taskItem => taskItem.id === changedTaskItem.id);
+  handleUpdateTaskItem(changedTaskItem: ITaskItem) {
+    console.log(changedTaskItem);
+    const indexToUpdate = this.taskList.findIndex(
+      (taskItem) => taskItem.id === changedTaskItem.id
+    );
     if (indexToUpdate != -1) {
-      const newTaskList = this.taskList.reduce((acc: ITaskItem[], item, index) => {
-        if (index !== indexToUpdate) {
-          acc.push(item);
-        }
-        return acc;
-      }, []);
-
+      const newTaskList = this.removeTaskItem(this.taskList, indexToUpdate);
       newTaskList.splice(indexToUpdate, 0, changedTaskItem);
       this.taskList = newTaskList;
       this.refreshTaskStatusesInfo(newTaskList);
     }
+  }
+
+  handleRemoveTaskItemById(id: number) {
+    const indexToRemove = this.taskList.findIndex(
+      (taskItem) => taskItem.id === id
+    );
+    if (indexToRemove != -1) {
+      this.taskList = this.removeTaskItem(this.taskList, indexToRemove);
+    }
+  }
+
+  private removeTaskItem(
+    taskList: ITaskItem[],
+    indexToRemove: number
+  ): ITaskItem[] {
+    return taskList.reduce((acc: ITaskItem[], item, index) => {
+      if (index !== indexToRemove) {
+        acc.push(item);
+      }
+      return acc;
+    }, []);
   }
 }

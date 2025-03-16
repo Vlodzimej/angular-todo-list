@@ -13,4 +13,4 @@
     </button>
   </div>
 </div>
-<task-details (updateTaskItemOutput)="updateTaskItem($event)"></task-details>
+<task-details (updateTaskItemOutput)="handleUpdateTaskItem($event)" (removeTaskItemOutput)="handleRemoveTaskItemById($event)"></task-details>
