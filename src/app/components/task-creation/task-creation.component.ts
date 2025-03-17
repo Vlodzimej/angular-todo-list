@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, Output } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ITaskItem } from '@models';
 import { AlertService, TaskService } from '@services';
@@ -9,26 +10,40 @@ import { AlertService, TaskService } from '@services';
   styleUrls: ['./task-creation.component.scss'],
   imports: [ReactiveFormsModule],
 })
-export class TaskCreationComponent implements OnInit {
+export class TaskCreationComponent {
   @Output() addTaskEvent = new EventEmitter<ITaskItem>();
 
-  task = new FormControl('');
+  taskValueInput = new FormControl('');
 
-  constructor(private taskService: TaskService, private alertService: AlertService) {}
+  constructor(
+    private taskService: TaskService,
+    private alertService: AlertService,
+    private destroyRef: DestroyRef
+  ) {}
 
-  ngOnInit() {}
+  handleAddButtonClick(e: Event) {
+    e.preventDefault();
+    this.addTask();
+  }
 
-  handleAddButtonClick() {
-    const text = (this.task.value ?? '').trim();
+  private addTask() {
+    const text = (this.taskValueInput.value ?? '').trim();
     if (text.length == 0) {
       this.alertService.showAlert('Поле не заполнено');
       return;
     }
-    this.taskService.addTask(text).subscribe(result => {
-      if (result != null) {
-        this.addTaskEvent.emit(result);
-      }
-    });
+    this.taskService
+      .addTask(text)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (result) => {
+          this.addTaskEvent.emit(result);
+          this.taskValueInput.setValue('');
+        },
+        error: (error) => {
+          console.error(error);
+          this.alertService.showAlert('Ошибка при добавлении записи');
+        },
+      });
   }
 }
-

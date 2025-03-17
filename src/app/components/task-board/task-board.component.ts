@@ -22,7 +22,7 @@ import {
   styleUrls: ['./task-board.component.scss'],
   imports: [CommonModule, DragDropModule],
 })
-export class TaskBoardComponent implements OnInit, OnChanges {
+export class TaskBoardComponent implements OnChanges {
   @Input() taskList: ITaskItem[] = [];
   @Output() changeTaskStatus = new EventEmitter<ITaskItem>();
 
@@ -44,16 +44,12 @@ export class TaskBoardComponent implements OnInit, OnChanges {
     },
   ];
 
-  constructor() {}
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes.hasOwnProperty('taskList')) {
       const taskList = changes['taskList'].currentValue;
       this.fillTaskSections(taskList);
     }
   }
-
-  ngOnInit() {}
 
   private fillTaskSections(taskList: ITaskItem[]) {
     this.sections = this.sections.map((section) => ({ ...section, tasks: [] }));

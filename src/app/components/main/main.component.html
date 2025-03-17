@@ -17,7 +17,7 @@
   </div>
 
   <div class="more-button-container">
-    <button class="success-button" (click)="moreButtonClick()" *ngIf="taskList.length > 5">
+    <button class="success-button" (click)="handleMoreButtonClick()" *ngIf="taskList.length > 5">
       {{ currentItemsNumberToShow == minItemsNumberToShow ? 'Показать еще' : 'Скрыть' }}
     </button>
   </div>

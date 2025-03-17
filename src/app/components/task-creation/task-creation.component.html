@@ -1,7 +1,7 @@
 <div class="content-block">
   <p class="title">Добавить задачу</p>
-  <div class="form-container">
-    <button (click)="handleAddButtonClick()"></button>
-    <input type="text" class="text-input" [formControl]="task">
-  </div>
+  <form class="form-container" (submit)="handleAddButtonClick($event)">
+    <button (click)="handleAddButtonClick($event)"></button>
+    <input type="text" class="text-input" [formControl]="taskValueInput">
+  </form>
 </div>

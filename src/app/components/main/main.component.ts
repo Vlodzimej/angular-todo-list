@@ -4,12 +4,12 @@ import {
   TaskStatusesInfoComponent,
   TaskCreationComponent,
   TaskListComponent,
-  TaskBoardComponent
+  TaskBoardComponent,
 } from '@components';
 import { TaskStatuses } from '@data';
 import { GetStatusPriority, TaskStatus } from '@enums';
 import { ITaskItem, ITaskStatusItem } from '@models';
-import { TaskService } from '@services';
+import { AlertService, TaskService } from '@services';
 import { TaskDetailsComponent } from '../task-details/task-details.component';
 import { Subject } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -30,13 +30,13 @@ import { Resolutions } from '@constants';
     TaskDetailsComponent,
     TaskBoardComponent,
     TaskSmallListComponent,
-    ShowOnDeviceDirective
+    ShowOnDeviceDirective,
   ],
 })
 export class MainComponent implements OnInit {
   @ViewChild(TaskDetailsComponent) taskDetailsPopup!: TaskDetailsComponent;
 
-  resolutions = Resolutions
+  resolutions = Resolutions;
 
   taskList$ = new Subject<ITaskItem[]>();
   taskList: ITaskItem[] = [];
@@ -50,6 +50,7 @@ export class MainComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
+    private alertService: AlertService,
     private destroyRef: DestroyRef
   ) {}
 
@@ -68,21 +69,6 @@ export class MainComponent implements OnInit {
         this.taskList$.next(data);
         this.refreshTaskStatusesInfo(this.taskList);
       });
-  }
-
-  handleAddTaskEvent(newTaskItem: ITaskItem) {
-    this.taskList$.next([newTaskItem, ...this.taskList]);
-  }
-
-  handleShowTaskDetails(index: number) {
-    this.taskDetailsPopup.open(this.taskList[index]);
-  }
-
-  moreButtonClick() {
-    this.currentItemsNumberToShow =
-      this.currentItemsNumberToShow == this.minItemsNumberToShow
-        ? this.taskList.length
-        : this.minItemsNumberToShow;
   }
 
   refreshTaskStatusesInfo(taskList: ITaskItem[]) {
@@ -107,43 +93,78 @@ export class MainComponent implements OnInit {
           indexToIncrement = -1;
       }
 
-      if (indexToIncrement !== -1) {
+      if (indexToIncrement != -1) {
         this.taskStatusItems[indexToIncrement].count++;
       }
     });
   }
 
-  handleUpdateTaskItem(changedTaskItem: ITaskItem) {
-    console.log(changedTaskItem);
-    const indexToUpdate = this.taskList.findIndex(
-      (taskItem) => taskItem.id === changedTaskItem.id
-    );
-    if (indexToUpdate != -1) {
-      const newTaskList = this.removeTaskItem(this.taskList, indexToUpdate);
-      newTaskList.splice(indexToUpdate, 0, changedTaskItem);
-      this.taskList$.next(newTaskList);
-    }
+  handleMoreButtonClick() {
+    this.currentItemsNumberToShow =
+      this.currentItemsNumberToShow == this.minItemsNumberToShow
+        ? this.taskList.length
+        : this.minItemsNumberToShow;
+  }
+
+  handleAddTaskEvent(newTaskItem: ITaskItem) {
+    this.taskList$.next([newTaskItem, ...this.taskList]);
+  }
+
+  handleShowTaskDetails(index: number) {
+    this.taskDetailsPopup.open(this.taskList[index]);
+  }
+
+  handleUpdateTaskItem(taskItem: ITaskItem) {
+    this.updateTask(taskItem);
   }
 
   handleRemoveTaskItemById(id: number) {
-    const indexToRemove = this.taskList.findIndex(
-      (taskItem) => taskItem.id === id
-    );
-    if (indexToRemove != -1) {
-      this.taskList$.next(this.removeTaskItem(this.taskList, indexToRemove));
-    }
+    this.removeTaskItemById(id);
   }
 
-  private removeTaskItem(
-    taskList: ITaskItem[],
-    indexToRemove: number
-  ): ITaskItem[] {
-    return taskList.reduce((acc: ITaskItem[], item, index) => {
-      if (index !== indexToRemove) {
-        acc.push(item);
-      }
-      return acc;
-    }, []);
+  private removeTaskItemById(id: number) {
+    this.taskService
+      .removeTaskById(id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (idToRemove) => {
+          this.taskList$.next(
+            this.taskList.filter((taskItem) => taskItem.id != idToRemove)
+          );
+        },
+        error: (error) => {
+          console.error(error);
+          this.alertService.showAlert('Ошибка при удалении записи');
+        },
+      });
+  }
+
+  private updateTask(changedTaskItem: ITaskItem) {
+    const indexToUpdate = this.taskList.findIndex(
+      (taskItem) => taskItem.id === changedTaskItem.id
+    );
+
+    if (indexToUpdate == -1) {
+      this.alertService.showAlert('Запись не найдена');
+      return;
+    }
+
+    this.taskService
+      .updateTask(changedTaskItem)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (taskItem) => {
+          const newTaskList = this.taskList.filter(
+            (taskItem) => taskItem.id != changedTaskItem.id
+          );
+          newTaskList.splice(indexToUpdate, 0, taskItem);
+          this.taskList$.next(newTaskList);
+        },
+        error: (error) => {
+          console.error(error);
+          this.alertService.showAlert('Ошибка при обновлении записи');
+        },
+      });
   }
 
   private sortTaskItems(taskItems: ITaskItem[]): ITaskItem[] {
