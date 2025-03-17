@@ -1,5 +1,6 @@
-<div *ngFor="let row of data.rows | limitTo: limit + 1; let index = index; let first = first; let last = last;" class="row-wrapper"
-  [ngClass]="{'header': first, 'last': last}">
+@if (data.rows.length > 1) {
+<div *ngFor="let row of data.rows | limitTo: limit + 1; let index = index; let first = first; let last = last;"
+  class="row-wrapper" [ngClass]="{'header': first, 'last': last}">
   <div class="row">
     <div *ngFor="let cell of row" class="cell" [ngStyle]="{'flex-basis': cell.size, 'justify-items': cell.align}">
       <ng-container [ngSwitch]="cell.type">
@@ -18,3 +19,9 @@
   </div>
   <div class="divider" *ngIf="!first && !last"></div>
 </div>
+}
+@if (data.rows.length == 1) {
+  <div class="placeholder">
+    <p>{{ placeholder }}</p>
+  </div>
+}

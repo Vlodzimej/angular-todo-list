@@ -4,6 +4,7 @@
   </p>
 </div>
 
+@if (taskList.length > 0) {
 <div class="tasks-container">
   @for (taskItem of taskList; track taskItem.id; let index = $index) {
   <div class="content-block">
@@ -12,3 +13,11 @@
   </div>
   }
 </div>
+}
+@if (taskList.length == 0) {
+<div class="placeholder">
+  <p>
+    Список задач пуст
+  </p>
+</div>
+}
