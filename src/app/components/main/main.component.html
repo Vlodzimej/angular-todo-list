@@ -8,7 +8,7 @@
     <task-list [taskList]="taskList" [itemsCountToShow]="currentItemsNumberToShow" (showTaskDetails)="handleShowTaskDetails($event)"></task-list>
   </div>
   <div class="footer">
-    <button class="todo-button" (click)="moreButtonClick()" *ngIf="taskList.length > 5">
+    <button class="success-button" (click)="moreButtonClick()" *ngIf="taskList.length > 5">
       {{ currentItemsNumberToShow == minItemsNumberToShow ? 'Показать еще' : 'Скрыть' }}
     </button>
   </div>

@@ -9,6 +9,8 @@ import { Component, Input } from '@angular/core';
 })
 export class PopupComponent {
   @Input() title: string = "";
+  @Input() isCloseButtonVisible = true;
+
   isVisible = false;
 
   show() {

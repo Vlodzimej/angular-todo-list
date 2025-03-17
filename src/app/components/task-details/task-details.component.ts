@@ -3,7 +3,7 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TaskStatus } from '@enums';
 import { ITaskItem, TStatusButton } from '@models';
-import { TaskService } from '@services';
+import { AlertService, TaskService } from '@services';
 import { PopupComponent } from '@shared';
 
 @Component({
@@ -43,7 +43,7 @@ export class TaskDetailsComponent {
     },
   ];
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private alertService: AlertService) {}
 
   open(taskItem: ITaskItem) {
     this.taskItem = taskItem;
@@ -56,6 +56,8 @@ export class TaskDetailsComponent {
     if (newStatus != this.taskItem.status) {
       this.currentStatus = newStatus;
       this.updateTask();
+    } else {
+      this.alertService.showAlert(`Задача уже находится в статусе ${newStatus}`);
     }
   }
 
@@ -66,6 +68,8 @@ export class TaskDetailsComponent {
       this.taskValueInput.value != this.taskItem.value
     ) {
       this.updateTask();
+    } else {
+      this.alertService.showAlert("Нет изменений");
     }
   }
 

@@ -18,4 +18,11 @@
             height: rem.convert(32px);
         }
     }
+
+    .no-close-button {
+        .title {
+            flex-grow: 0;
+        }
+        justify-content: center;
+    }
 }

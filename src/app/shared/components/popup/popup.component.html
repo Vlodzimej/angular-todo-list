@@ -1,8 +1,8 @@
 <div class="popup-overlay" *ngIf="isVisible" (click)="handleOverlayClick($event)">
   <div class="popup-content" (click)="handleContentClick($event)">
-    <div class="header">
+    <div class="header" [ngClass]="{'no-close-button': !isCloseButtonVisible}">
       <p class="title">{{ title }}</p>
-      <button class="close-button" (click)="handleCloseButtonClick($event)"></button>
+      <button class="close-button" (click)="handleCloseButtonClick($event)" *ngIf="isCloseButtonVisible"></button>
     </div>
     <ng-content></ng-content>
   </div>
