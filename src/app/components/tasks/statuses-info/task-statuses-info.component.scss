@@ -1,11 +1,12 @@
 @use "sass-rem" as rem;
+@use "variables";
 
 :host {
     flex-basis: 50%;
     padding-right: rem.convert(13px);
     
     // tablet, phone
-    @media (max-width: 992px) {
+    @media (max-width: variables.$tabletMaxWidth) {
         padding: 0;
     }
 
@@ -14,7 +15,7 @@
         justify-content: space-between;
         row-gap: rem.convert(24px);
 
-        @media (min-width: 320px) and (max-width: 640px) {
+        @media (min-width: variables.$phoneMinWidth) and (max-width: variables.$phoneMaxWidth) {
             flex-direction: column;
         }
     }

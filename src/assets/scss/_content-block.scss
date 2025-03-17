@@ -11,7 +11,7 @@
 
     .title {
         @include fonts.responsive-text-class(
-            "text-big",
+            $class: "text-big",
             $desktop-class: "text-lg",
             $laptop-class: "text-lg",
             $tablet-class: "text-big",

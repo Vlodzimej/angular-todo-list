@@ -51,13 +51,13 @@
         }
     }
 
-    @media (min-width: 1221px) {
+    @media (min-width: variables.$desktopMinWidth) {
         .header {
             margin-top: rem.convert(64px);
         }
     }
 
-    @media (min-width: 993px) and (max-width: 1220px) {
+    @media (min-width: variables.$laptopMinWidth) and (max-width: variables.$laptopMaxWidth) {
         .header {
             margin-top: rem.convert(68px);
         }

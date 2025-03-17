@@ -29,7 +29,6 @@ export class TaskService {
 
   fetchTasks(): Observable<ITaskItem[]> {
     return from(this.dbPromise.then((db) => db.getAll(StoreName))).pipe(
-      delay(1000), // Имитация задержки сети
       map((tasks) =>
         tasks.map((task) => ({
           ...task,
