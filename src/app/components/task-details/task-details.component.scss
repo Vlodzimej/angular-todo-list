@@ -1,0 +1,19 @@
+@use "sass-rem" as rem;
+
+.status-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: rem.convert(16px);
+}
+
+.task-button-container {
+    display: flex;
+    margin-top: rem.convert(40px);
+    justify-content: space-between;
+    column-gap: rem.convert(23px);
+
+    button {
+        padding: (8px 0);
+        flex-grow: 1;
+    }
+}

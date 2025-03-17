@@ -1,0 +1,10 @@
+<popup #popupElement title="Предупреждение" [isCloseButtonVisible]="false">
+  <div class="content">
+    <p>{{ message }}</p>
+  </div>
+  <div class="footer">
+  <button class="success-button" (click)="dismiss()">
+    <p>Закрыть</p>
+  </button>
+</div>
+</popup>

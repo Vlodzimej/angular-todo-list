@@ -1,4 +1,4 @@
-<div *ngFor="let row of data.rows | limitTo: limit + 1; let first = first; let last = last;" class="row-wrapper"
+<div *ngFor="let row of data.rows | limitTo: limit + 1; let index = index; let first = first; let last = last;" class="row-wrapper"
   [ngClass]="{'header': first, 'last': last}">
   <div class="row">
     <div *ngFor="let cell of row" class="cell" [ngStyle]="{'flex-basis': cell.size, 'justify-items': cell.align}">
@@ -9,9 +9,9 @@
           </div>
         </div>
         <div *ngSwitchCase="tableCellType.STATUS">
-          <table-cell-state>
+          <button class="info-button" (click)="handleClickStatusButton(index)">
             {{cell.value}}
-          </table-cell-state>
+          </button>
         </div>
       </ng-container>
     </div>

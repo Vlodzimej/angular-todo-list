@@ -1,0 +1,14 @@
+<popup title="Изменение задачи">
+  <div class="form-container">
+    <input type="text" class="text-input" [formControl]="taskValueInput">
+  </div>
+  <div class="status-buttons-container">
+    <button class="info-button" *ngFor="let statusButton of statusButtons" (click)="statusButton.action()">
+      {{statusButton.title}}
+    </button>
+  </div>
+  <div class="task-button-container">
+    <button class="success-button focused" (click)="handleSaveButtonClick()">Изменить</button>
+    <button class="success-button" (click)="handleRemoveButtonClick()">Удалить</button>
+  </div>
+</popup>

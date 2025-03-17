@@ -1,7 +1,7 @@
 import { TaskStatus } from '@enums';
-import { ITaskCategory } from '@models';
+import { ITaskStatusItem } from '@models';
 
-export const TaskCategories: ITaskCategory[] = [
+export const TaskStatuses: ITaskStatusItem[] = [
   {
     type: TaskStatus.CLOSED,
     count: 0,

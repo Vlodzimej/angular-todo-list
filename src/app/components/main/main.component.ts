@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import {
-  TaskCategoriesInfoComponent,
+  TaskStatusesInfoComponent,
   TaskCreationComponent,
   TaskListComponent,
 } from '@components';
-import { TaskCategories } from '@data';
+import { TaskStatuses } from '@data';
 import { TaskStatus } from '@enums';
-import { ITaskCategory, ITaskItem } from '@models';
+import { ITaskItem, ITaskStatusItem } from '@models';
 import { TaskService } from '@services';
+import { TaskDetailsComponent } from '../task-details/task-details.component';
 
 @Component({
   selector: 'todo-main',
@@ -16,14 +17,19 @@ import { TaskService } from '@services';
   styleUrls: ['./main.component.scss'],
   imports: [
     CommonModule,
-    TaskCategoriesInfoComponent,
+    TaskStatusesInfoComponent,
     TaskCreationComponent,
     TaskListComponent,
+    TaskDetailsComponent,
   ],
 })
 export class MainComponent implements OnInit {
+  @ViewChild(TaskDetailsComponent) taskDetailsPopup!: TaskDetailsComponent;
+
   taskList: ITaskItem[] = [];
-  taskCategories: ITaskCategory[] = [];
+  taskStatusItems: ITaskStatusItem[] = [];
+
+  taskItem!: ITaskItem;
 
   isMoreButtonVisible: boolean = false;
   minItemsNumberToShow = 5;
@@ -34,13 +40,17 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.taskService.fetchTasks().subscribe((data) => {
       this.taskList = data;
-      this.refreshTaskCategories(this.taskList);
+      this.refreshTaskStatusesInfo(this.taskList);
     });
   }
 
   handleAddTaskEvent(newTaskItem: ITaskItem) {
     this.taskList = [newTaskItem, ...this.taskList];
-    this.refreshTaskCategories(this.taskList);
+    this.refreshTaskStatusesInfo(this.taskList);
+  }
+
+  handleShowTaskDetails(index: number) {
+    this.taskDetailsPopup.open(this.taskList[index]);
   }
 
   moreButtonClick() {
@@ -50,9 +60,9 @@ export class MainComponent implements OnInit {
         : this.minItemsNumberToShow;
   }
 
-  refreshTaskCategories(taskList: ITaskItem[]) {
-    this.taskCategories = TaskCategories.map((category) => ({
-      ...category,
+  refreshTaskStatusesInfo(taskList: ITaskItem[]) {
+    this.taskStatusItems = TaskStatuses.map((status) => ({
+      ...status,
       count: 0,
     }));
 
@@ -73,8 +83,42 @@ export class MainComponent implements OnInit {
       }
 
       if (indexToIncrement !== -1) {
-        this.taskCategories[indexToIncrement].count++;
+        this.taskStatusItems[indexToIncrement].count++;
       }
     });
+  }
+
+  handleUpdateTaskItem(changedTaskItem: ITaskItem) {
+    console.log(changedTaskItem);
+    const indexToUpdate = this.taskList.findIndex(
+      (taskItem) => taskItem.id === changedTaskItem.id
+    );
+    if (indexToUpdate != -1) {
+      const newTaskList = this.removeTaskItem(this.taskList, indexToUpdate);
+      newTaskList.splice(indexToUpdate, 0, changedTaskItem);
+      this.taskList = newTaskList;
+      this.refreshTaskStatusesInfo(newTaskList);
+    }
+  }
+
+  handleRemoveTaskItemById(id: number) {
+    const indexToRemove = this.taskList.findIndex(
+      (taskItem) => taskItem.id === id
+    );
+    if (indexToRemove != -1) {
+      this.taskList = this.removeTaskItem(this.taskList, indexToRemove);
+    }
+  }
+
+  private removeTaskItem(
+    taskList: ITaskItem[],
+    indexToRemove: number
+  ): ITaskItem[] {
+    return taskList.reduce((acc: ITaskItem[], item, index) => {
+      if (index !== indexToRemove) {
+        acc.push(item);
+      }
+      return acc;
+    }, []);
   }
 }

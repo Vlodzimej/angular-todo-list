@@ -1,8 +1,15 @@
-import { Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { ITableCell, ITableModel, ITaskItem } from '@models';
-import { TableComponent } from '../../shared/components/table/table.component';
 import { TableCellType } from '@enums';
 import { TodoTableHeaderRow } from '@data';
+import { TableComponent } from '@shared';
 
 @Component({
   selector: 'task-list',
@@ -12,8 +19,10 @@ import { TodoTableHeaderRow } from '@data';
 })
 export class TaskListComponent implements OnChanges {
   @Input() taskList: ITaskItem[] = [];
-  @Input() itemsCountToShow!: number
-  
+  @Input() itemsCountToShow!: number;
+
+  @Output() showTaskDetails = new EventEmitter<number>();
+
   tableData: ITableModel = { rows: [] };
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -42,6 +51,10 @@ export class TaskListComponent implements OnChanges {
       }
     });
 
-    return [TodoTableHeaderRow, ...dataRows]
+    return [TodoTableHeaderRow, ...dataRows];
+  }
+
+  handleClickStatusbutton(index: number) {
+    this.showTaskDetails.emit(index);
   }
 }
