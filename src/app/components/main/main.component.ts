@@ -4,6 +4,7 @@ import {
   TaskStatusesInfoComponent,
   TaskCreationComponent,
   TaskListComponent,
+  TaskBoardComponent
 } from '@components';
 import { TaskStatuses } from '@data';
 import { GetStatusPriority, TaskStatus } from '@enums';
@@ -23,6 +24,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     TaskCreationComponent,
     TaskListComponent,
     TaskDetailsComponent,
+    TaskBoardComponent
   ],
 })
 export class MainComponent implements OnInit {

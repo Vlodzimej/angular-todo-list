@@ -7,10 +7,11 @@
     <task-creation (addTaskEvent)="handleAddTaskEvent($event)"></task-creation>
     <task-list [taskList]="taskList" [itemsCountToShow]="currentItemsNumberToShow" (showTaskDetails)="handleShowTaskDetails($event)"></task-list>
   </div>
-  <div class="footer">
+  <div class="more-button-container">
     <button class="success-button" (click)="moreButtonClick()" *ngIf="taskList.length > 5">
       {{ currentItemsNumberToShow == minItemsNumberToShow ? 'Показать еще' : 'Скрыть' }}
     </button>
   </div>
 </div>
+<task-board [taskList]="taskList" (changeTaskStatus)="handleUpdateTaskItem($event)"></task-board>
 <task-details (updateTaskItemOutput)="handleUpdateTaskItem($event)" (removeTaskItemOutput)="handleRemoveTaskItemById($event)"></task-details>
