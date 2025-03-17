@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, EventEmitter, Output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -8,7 +9,7 @@ import { AlertService, TaskService } from '@services';
   selector: 'task-creation',
   templateUrl: './task-creation.component.html',
   styleUrls: ['./task-creation.component.scss'],
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
 })
 export class TaskCreationComponent {
   @Output() addTaskEvent = new EventEmitter<ITaskItem>();
@@ -21,9 +22,14 @@ export class TaskCreationComponent {
     private destroyRef: DestroyRef
   ) {}
 
-  handleAddButtonClick(e: Event) {
+  handleSubmit(e: Event) {
     e.preventDefault();
     this.addTask();
+  }
+
+  handleResetInput(e: Event) {
+    e.preventDefault();
+    this.taskValueInput.setValue('');
   }
 
   private addTask() {

@@ -24,7 +24,7 @@
 </div>
 
 <task-board [taskList]="taskList" (changeTaskStatus)="handleUpdateTaskItem($event)" appShowOnDevice
-  [minWidth]="resolutions.laptop.minWidth"></task-board>
+  [minWidth]="resolutions.laptop.minWidth" *ngIf="taskList.length > 0"></task-board>
 
 <task-details (updateTaskItemOutput)="handleUpdateTaskItem($event)"
   (removeTaskItemOutput)="handleRemoveTaskItemById($event)"></task-details>

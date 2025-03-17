@@ -1,7 +1,10 @@
 <div class="content-block">
   <p class="title">Добавить задачу</p>
-  <form class="form-container" (submit)="handleAddButtonClick($event)">
-    <button (click)="handleAddButtonClick($event)"></button>
-    <input type="text" class="text-input" [formControl]="taskValueInput">
+  <form class="form-container" (submit)="handleSubmit($event)">
+    <button class="add-button" (click)="handleSubmit($event)"></button>
+    <div class="input-container">
+      <input type="text" class="text-input" [formControl]="taskValueInput">
+      <button class="clear-button" (click)="handleResetInput($event)" *ngIf="taskValueInput.value"></button>
+    </div>
   </form>
 </div>

@@ -36,4 +36,10 @@
     .row-wrapper.last {
         margin-bottom: rem.convert(16px);
     }
+
+    .placeholder {
+        justify-items: center;
+        flex-grow: 1;
+        margin-top: rem.convert(16px);
+    }
 }
