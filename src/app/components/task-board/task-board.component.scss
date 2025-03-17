@@ -24,39 +24,31 @@
             row-gap: rem.convert(28px);
             align-items: center;
 
-        .status-card {
-            width: rem.convert(140px);
-            height: rem.convert(48px);
-            border: 1px solid variables.$color-warning;
-            border-radius: rem.convert(12px);
-            justify-items: center;
-            align-content: center;
-            color: variables.$text-primary;
-            font-weight: 700;
-        }
-
-        .tasks-card {
-            display: flex;
-            align-self: stretch;
-            flex-direction: column;
-            min-width: rem.convert(390px);
-            row-gap: rem.convert(16px);
-            padding: rem.convert(16px 16px 56px 16px);
-            background-color: variables.$background-primary-soft-gray;
-            border: 1px solid variables.$gray-light;
-            border-radius: rem.convert(12px);
-            flex-grow: 1;
-
-            .task-item {
-                border: 1px solid variables.$gray-light;
+            .status-card {
+                width: rem.convert(140px);
+                height: rem.convert(48px);
+                border: rem.convert(1px) solid variables.$color-warning;
                 border-radius: rem.convert(12px);
-                background-color: variables.$background-primary;
-                padding: rem.convert(24px 32px);
-                width: rem.convert(357px);
+                justify-items: center;
+                align-content: center;
+                color: variables.$text-primary;
                 font-weight: 700;
             }
+
+            .tasks-card {
+                display: flex;
+                align-self: stretch;
+                flex-direction: column;
+                min-width: rem.convert(390px);
+                row-gap: rem.convert(16px);
+                padding: rem.convert(16px 16px 56px 16px);
+                background-color: variables.$background-primary-soft-gray;
+                border: 1px solid variables.$gray-light;
+                border-radius: rem.convert(12px);
+                flex-grow: 1;
+                overflow: visible;
+            }
         }
-    }
     }
 
     @media (min-width: 1221px) {
@@ -74,4 +66,48 @@
     @media (max-width: 992px) {
         display: none;
     }
+}
+
+.cdk-drag {
+    flex-grow: 0;
+    border: 2px solid variables.$gray-light;
+    border-radius: rem.convert(12px);
+    padding: rem.convert(24px) rem.convert(32px);
+    width: rem.convert(357px);
+    font-weight: 700;
+    background-color: variables.$background-primary;
+    box-shadow: 0 rem.convert(2px) rem.convert(4px) rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.cdk-drag-preview {
+    position: fixed;
+    z-index: 1000;
+    opacity: 0.8;
+    box-shadow: 0 rem.convert(4px) rem.convert(8px) rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+.cdk-drag-placeholder {
+    border: 1px dashed #ccc;
+    z-index: 100;
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
