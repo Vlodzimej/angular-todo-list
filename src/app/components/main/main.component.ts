@@ -40,7 +40,7 @@ export class MainComponent implements OnInit {
 
   taskList$ = new Subject<ITaskItem[]>();
   taskList: ITaskItem[] = [];
-  taskStatusItems: ITaskStatusItem[] = [];
+  taskStatusItems: ITaskStatusItem[] = TaskStatuses;
 
   taskItem!: ITaskItem;
 

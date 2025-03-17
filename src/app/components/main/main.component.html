@@ -15,16 +15,19 @@
     <task-small-list [taskList]="taskList" (showTaskDetails)="handleShowTaskDetails($event)" appShowOnDevice
       [minWidth]="resolutions.phone.minWidth" [maxWidth]="resolutions.phone.maxWidth"></task-small-list>
   </div>
-
-  <div class="more-button-container">
-    <button class="success-button" (click)="handleMoreButtonClick()" *ngIf="taskList.length > 5">
+  @if (taskList.length > 5) {
+  <div class="more-button-container" appShowOnDevice [minWidth]="resolutions.tablet.minWidth" display="flex">
+    <button class="success-button" (click)="handleMoreButtonClick()">
       {{ currentItemsNumberToShow == minItemsNumberToShow ? 'Показать еще' : 'Скрыть' }}
     </button>
   </div>
+  }
 </div>
 
+@if (taskList.length > 0) {
 <task-board [taskList]="taskList" (changeTaskStatus)="handleUpdateTaskItem($event)" appShowOnDevice
-  [minWidth]="resolutions.laptop.minWidth" *ngIf="taskList.length > 0"></task-board>
+  [minWidth]="resolutions.laptop.minWidth"></task-board>
+}
 
 <task-details (updateTaskItemOutput)="handleUpdateTaskItem($event)"
   (removeTaskItemOutput)="handleRemoveTaskItemById($event)"></task-details>

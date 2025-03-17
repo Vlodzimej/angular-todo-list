@@ -1,8 +1,8 @@
 <div class="content-block">
   <p class="title">Текущие задачи</p>
   <div class="tasks-container">
-    <ng-container *ngFor="let status of taskStatusItems">
-      <task-status [model]="status"></task-status>
-    </ng-container>
+    @for (status of taskStatusItems; track status.type) {
+    <task-status [model]="status"></task-status>
+    }
   </div>
 </div>

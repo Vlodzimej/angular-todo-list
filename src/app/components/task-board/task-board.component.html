@@ -5,19 +5,17 @@
 </div>
 <div class="sections-container" cdkDropListGroup>
   @for (section of sections; track section.type; let index = $index) {
-    <div class="section" 
-     cdkDropList 
-     [cdkDropListData]="sections[index].tasks"
-     [cdkDropListConnectedTo]="getOtherSectionsData(index)"
-     (cdkDropListDropped)="drop($event)"
-     [id]="section.type"> 
+  <div class="section" cdkDropList [cdkDropListData]="sections[index].tasks"
+    [cdkDropListConnectedTo]="getOtherSectionsData(index)" (cdkDropListDropped)="drop($event)" [id]="section.type">
     <div class="status-card">
       <p>{{ section.title }}</p>
     </div>
     <div class="tasks-card">
-      <div class="task-item text-md" *ngFor="let taskItem of section.tasks" cdkDrag>
+      @for (taskItem of section.tasks; track taskItem.id) {
+      <div class="task-item text-md" cdkDrag>
         <p>{{ taskItem.value }}</p>
       </div>
+      }
     </div>
   </div>
   }

@@ -6,6 +6,7 @@ import { Directive, ElementRef, Renderer2, OnInit, OnDestroy, Input } from '@ang
 export class ShowOnDeviceDirective implements OnInit, OnDestroy {
   @Input() minWidth: number | null = null; 
   @Input() maxWidth: number | null = null;
+  @Input() display: string = 'block';
 
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
@@ -26,7 +27,7 @@ export class ShowOnDeviceDirective implements OnInit, OnDestroy {
       (this.maxWidth === null || screenWidth <= this.maxWidth);
 
     if (isVisible) {
-      this.renderer.setStyle(this.el.nativeElement, 'display', 'block');
+      this.renderer.setStyle(this.el.nativeElement, 'display', this.display);
     } else {
       this.renderer.setStyle(this.el.nativeElement, 'display', 'none');
     }

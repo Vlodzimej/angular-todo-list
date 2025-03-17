@@ -1,8 +1,9 @@
 @if (data.rows.length > 1) {
-<div *ngFor="let row of data.rows | limitTo: limit + 1; let index = index; let first = first; let last = last;"
-  class="row-wrapper" [ngClass]="{'header': first, 'last': last}">
+@for (row of (data.rows| limitTo: limit + 1); track row.id; let index = $index; let first = $first; let last = $last) {
+<div class="row-wrapper" [ngClass]="{'title': first, 'last': last}">
   <div class="row">
-    <div *ngFor="let cell of row" class="cell" [ngStyle]="{'flex-basis': cell.size, 'justify-items': cell.align}">
+    @for (cell of row.cells; track cell.id) {
+    <div [ngStyle]="{'flex-basis': cell.size, 'justify-items': cell.align}">
       <ng-container [ngSwitch]="cell.type">
         <div *ngSwitchCase="tableCellType.TEXT">
           <div [ngClass]="{'column-title': first}">
@@ -16,12 +17,15 @@
         </div>
       </ng-container>
     </div>
+    }
   </div>
-  <div class="divider" *ngIf="!first && !last"></div>
+  @if (!first && !last) {
+  <div class="divider"></div>
+  }
 </div>
-}
+}}
 @if (data.rows.length == 1) {
-  <div class="placeholder">
-    <p>{{ placeholder }}</p>
-  </div>
+<div class="placeholder">
+  <p>{{ placeholder }}</p>
+</div>
 }

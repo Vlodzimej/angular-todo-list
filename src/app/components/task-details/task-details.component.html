@@ -3,9 +3,11 @@
     <input type="text" class="text-input" [formControl]="taskValueInput">
   </div>
   <div class="status-buttons-container">
-    <button class="info-button" *ngFor="let statusButton of statusButtons" (click)="statusButton.action()">
+    @for (statusButton of statusButtons; track statusButton.title) {
+    <button class="info-button" (click)="statusButton.action()">
       {{statusButton.title}}
     </button>
+    }
   </div>
   <div class="task-button-container">
     <button class="success-button focused" (click)="handleSaveButtonClick()">Изменить</button>

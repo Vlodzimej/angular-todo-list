@@ -4,7 +4,9 @@
     <button class="add-button" (click)="handleSubmit($event)"></button>
     <div class="input-container">
       <input type="text" class="text-input" [formControl]="taskValueInput">
-      <button class="clear-button" (click)="handleResetInput($event)" *ngIf="taskValueInput.value"></button>
+      @if (taskValueInput.value) {
+      <button class="clear-button" (click)="handleResetInput($event)"></button>
+      }
     </div>
   </form>
 </div>
