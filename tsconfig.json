@@ -25,7 +25,8 @@
       "@shared": ["app/shared"],
       "@enums": ["app/enums"],
       "@models": ["app/models"],
-      "@data": ["app/data"]
+      "@data": ["app/data"],
+      "@constants": ["app/contants"]
     }
   },
   "angularCompilerOptions": {

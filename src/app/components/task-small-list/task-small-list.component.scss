@@ -1,0 +1,24 @@
+@use "sass-rem" as rem;
+@use "fonts";
+
+.header {
+    margin-bottom: rem.convert(24px);
+    border-radius: rem.convert(12px);
+}
+
+.tasks-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem.convert(24px);
+    .content-block {
+        display: flex;
+        flex-direction: column;
+        padding: rem.convert(24px);
+        .title {
+            @extend .text-md;
+        }
+        button {
+            flex-grow: 1;
+        }
+    }
+}

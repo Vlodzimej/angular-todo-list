@@ -62,10 +62,6 @@
             margin-top: rem.convert(68px);
         }
     }
-
-    @media (max-width: 992px) {
-        display: none;
-    }
 }
 
 .cdk-drag {

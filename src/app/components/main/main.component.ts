@@ -11,8 +11,11 @@ import { GetStatusPriority, TaskStatus } from '@enums';
 import { ITaskItem, ITaskStatusItem } from '@models';
 import { TaskService } from '@services';
 import { TaskDetailsComponent } from '../task-details/task-details.component';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TaskSmallListComponent } from '../task-small-list/task-small-list.component';
+import { ShowOnDeviceDirective } from 'app/shared/directives';
+import { Resolutions } from 'app/constants';
 
 @Component({
   selector: 'todo-main',
@@ -24,11 +27,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     TaskCreationComponent,
     TaskListComponent,
     TaskDetailsComponent,
-    TaskBoardComponent
+    TaskBoardComponent,
+    TaskSmallListComponent,
+    ShowOnDeviceDirective
   ],
 })
 export class MainComponent implements OnInit {
   @ViewChild(TaskDetailsComponent) taskDetailsPopup!: TaskDetailsComponent;
+
+  resolutions = Resolutions
 
   taskList$ = new Subject<ITaskItem[]>();
   taskList: ITaskItem[] = [];

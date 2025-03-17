@@ -1,0 +1,14 @@
+<div class="header">
+  <p class="text-lg">
+    Текущие задачи
+  </p>
+</div>
+
+<div class="tasks-container">
+  @for (taskItem of taskList; track taskItem.id; let index = $index) {
+  <div class="content-block">
+    <p class="title">{{ taskItem.value }}</p>
+    <button class="success-button focused" (click)="handleClickStatusbutton(index)">{{ taskItem.status }}</button>
+  </div>
+  }
+</div>

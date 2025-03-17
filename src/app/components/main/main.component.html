@@ -3,15 +3,28 @@
     <p class="title">ToDo List Scloud</p>
   </div>
   <div class="content">
+
     <task-statuses-info [taskStatusItems]="taskStatusItems"></task-statuses-info>
+
     <task-creation (addTaskEvent)="handleAddTaskEvent($event)"></task-creation>
-    <task-list [taskList]="taskList" [itemsCountToShow]="currentItemsNumberToShow" (showTaskDetails)="handleShowTaskDetails($event)"></task-list>
+
+    <task-list [taskList]="taskList" [itemsCountToShow]="currentItemsNumberToShow"
+      (showTaskDetails)="handleShowTaskDetails($event)" appShowOnDevice
+      [minWidth]="resolutions.tablet.minWidth"></task-list>
+
+    <task-small-list [taskList]="taskList" (showTaskDetails)="handleShowTaskDetails($event)" appShowOnDevice
+      [minWidth]="resolutions.phone.minWidth" [maxWidth]="resolutions.phone.maxWidth"></task-small-list>
   </div>
+
   <div class="more-button-container">
     <button class="success-button" (click)="moreButtonClick()" *ngIf="taskList.length > 5">
       {{ currentItemsNumberToShow == minItemsNumberToShow ? 'Показать еще' : 'Скрыть' }}
     </button>
   </div>
 </div>
-<task-board [taskList]="taskList" (changeTaskStatus)="handleUpdateTaskItem($event)"></task-board>
-<task-details (updateTaskItemOutput)="handleUpdateTaskItem($event)" (removeTaskItemOutput)="handleRemoveTaskItemById($event)"></task-details>
+
+<task-board [taskList]="taskList" (changeTaskStatus)="handleUpdateTaskItem($event)" appShowOnDevice
+  [minWidth]="resolutions.laptop.minWidth"></task-board>
+
+<task-details (updateTaskItemOutput)="handleUpdateTaskItem($event)"
+  (removeTaskItemOutput)="handleRemoveTaskItemById($event)"></task-details>
