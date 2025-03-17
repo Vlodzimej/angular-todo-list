@@ -72,11 +72,11 @@
     flex-grow: 0;
     border: 2px solid variables.$gray-light;
     border-radius: rem.convert(12px);
-    padding: rem.convert(24px) rem.convert(32px);
+    padding: rem.convert(24px 32px);
     width: rem.convert(357px);
     font-weight: 700;
     background-color: variables.$background-primary;
-    box-shadow: 0 rem.convert(2px) rem.convert(4px) rgba(0, 0, 0, 0.1);
+    box-shadow: 0 rem.convert(2px 4px) rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.2s ease;
     position: relative;
     z-index: 1;
@@ -86,7 +86,7 @@
     position: fixed;
     z-index: 1000;
     opacity: 0.8;
-    box-shadow: 0 rem.convert(4px) rem.convert(8px) rgba(0, 0, 0, 0.2);
+    box-shadow: 0 rem.convert(4px 8px) rgba(0, 0, 0, 0.2);
     pointer-events: none;
 }
 
