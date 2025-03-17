@@ -21,8 +21,9 @@ export class TaskDetailsComponent {
   taskItem!: ITaskItem;
   taskValueInput = new FormControl('');
   currentStatus!: TaskStatus;
+  statusButtons: TStatusButton[] = [];
 
-  statusButtons: TStatusButton[] = [
+  private allStatusButtons: TStatusButton[] = [
     {
       title: 'Отложить',
       action: () => {
@@ -43,12 +44,29 @@ export class TaskDetailsComponent {
     },
   ];
 
-  constructor(private taskService: TaskService, private alertService: AlertService) {}
+  private statusButtonsForClosedTask: TStatusButton[] = [
+    {
+      title: 'Переоткрыть',
+      action: () => {
+        this.changeStatus(TaskStatus.OPENED);
+      },
+    },
+  ];
+
+  constructor(
+    private taskService: TaskService,
+    private alertService: AlertService
+  ) {}
 
   open(taskItem: ITaskItem) {
     this.taskItem = taskItem;
     this.currentStatus = taskItem.status;
     this.taskValueInput.setValue(taskItem.value);
+    this.statusButtons =
+      taskItem.status == TaskStatus.CLOSED
+        ? this.statusButtonsForClosedTask
+        : this.allStatusButtons;
+
     this.popup.show();
   }
 
@@ -57,7 +75,9 @@ export class TaskDetailsComponent {
       this.currentStatus = newStatus;
       this.updateTask();
     } else {
-      this.alertService.showAlert(`Задача уже находится в статусе ${newStatus}`);
+      this.alertService.showAlert(
+        `Задача уже находится в статусе ${newStatus}`
+      );
     }
   }
 
@@ -69,7 +89,7 @@ export class TaskDetailsComponent {
     ) {
       this.updateTask();
     } else {
-      this.alertService.showAlert("Нет изменений");
+      this.alertService.showAlert('Нет изменений');
     }
   }
 
