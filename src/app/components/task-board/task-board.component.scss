@@ -66,13 +66,12 @@
 
 .cdk-drag {
     flex-grow: 0;
-    border: 2px solid variables.$gray-light;
+    border: 2px solid variables.$gray-border;
     border-radius: rem.convert(12px);
     padding: rem.convert(24px 32px);
     width: rem.convert(357px);
     font-weight: 700;
     background-color: variables.$background-primary;
-    box-shadow: 0 rem.convert(2px 4px) rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.2s ease;
     position: relative;
     z-index: 1;
