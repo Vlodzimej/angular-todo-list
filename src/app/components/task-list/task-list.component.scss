@@ -3,4 +3,8 @@
 
 :host {
     flex-basis: 100%;
+
+    .content-block {
+        padding: rem.convert(24px 40px 40px 40px);
+    }
 }
