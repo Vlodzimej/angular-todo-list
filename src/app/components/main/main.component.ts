@@ -1,15 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, DestroyRef, OnInit, ViewChild } from '@angular/core';
 import {
   TaskStatusesInfoComponent,
   TaskCreationComponent,
   TaskListComponent,
 } from '@components';
 import { TaskStatuses } from '@data';
-import { TaskStatus } from '@enums';
+import { GetStatusPriority, TaskStatus } from '@enums';
 import { ITaskItem, ITaskStatusItem } from '@models';
 import { TaskService } from '@services';
 import { TaskDetailsComponent } from '../task-details/task-details.component';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'todo-main',
@@ -26,6 +28,7 @@ import { TaskDetailsComponent } from '../task-details/task-details.component';
 export class MainComponent implements OnInit {
   @ViewChild(TaskDetailsComponent) taskDetailsPopup!: TaskDetailsComponent;
 
+  taskList$ = new Subject<ITaskItem[]>();
   taskList: ITaskItem[] = [];
   taskStatusItems: ITaskStatusItem[] = [];
 
@@ -35,18 +38,30 @@ export class MainComponent implements OnInit {
   minItemsNumberToShow = 5;
   currentItemsNumberToShow = 5;
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    private destroyRef: DestroyRef
+  ) {}
 
   ngOnInit() {
-    this.taskService.fetchTasks().subscribe((data) => {
-      this.taskList = data;
-      this.refreshTaskStatusesInfo(this.taskList);
-    });
+    this.taskList$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((taskItems) => {
+        this.taskList = this.sortTaskItems(taskItems);
+        this.refreshTaskStatusesInfo(taskItems);
+      });
+
+    this.taskService
+      .fetchTasks()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((data) => {
+        this.taskList$.next(data);
+        this.refreshTaskStatusesInfo(this.taskList);
+      });
   }
 
   handleAddTaskEvent(newTaskItem: ITaskItem) {
-    this.taskList = [newTaskItem, ...this.taskList];
-    this.refreshTaskStatusesInfo(this.taskList);
+    this.taskList$.next([newTaskItem, ...this.taskList]);
   }
 
   handleShowTaskDetails(index: number) {
@@ -96,8 +111,7 @@ export class MainComponent implements OnInit {
     if (indexToUpdate != -1) {
       const newTaskList = this.removeTaskItem(this.taskList, indexToUpdate);
       newTaskList.splice(indexToUpdate, 0, changedTaskItem);
-      this.taskList = newTaskList;
-      this.refreshTaskStatusesInfo(newTaskList);
+      this.taskList$.next(newTaskList);
     }
   }
 
@@ -106,7 +120,7 @@ export class MainComponent implements OnInit {
       (taskItem) => taskItem.id === id
     );
     if (indexToRemove != -1) {
-      this.taskList = this.removeTaskItem(this.taskList, indexToRemove);
+      this.taskList$.next(this.removeTaskItem(this.taskList, indexToRemove));
     }
   }
 
@@ -120,5 +134,18 @@ export class MainComponent implements OnInit {
       }
       return acc;
     }, []);
+  }
+
+  private sortTaskItems(taskItems: ITaskItem[]): ITaskItem[] {
+    return taskItems.sort((a, b) => {
+      const statusPriorityA = GetStatusPriority(a.status);
+      const statusPriorityB = GetStatusPriority(b.status);
+
+      if (statusPriorityA !== statusPriorityB) {
+        return statusPriorityA - statusPriorityB;
+      }
+
+      return b.id - a.id;
+    });
   }
 }
