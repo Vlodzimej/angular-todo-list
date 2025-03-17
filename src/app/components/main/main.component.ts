@@ -1,20 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   TaskStatusesInfoComponent,
   TaskCreationComponent,
   TaskListComponent,
   TaskBoardComponent,
+  TaskSmallListComponent,
+  TaskDetailsComponent
 } from '@components';
 import { TaskStatuses } from '@data';
 import { GetStatusPriority, TaskStatus } from '@enums';
 import { ITaskItem, ITaskStatusItem } from '@models';
 import { AlertService, TaskService } from '@services';
-import { TaskDetailsComponent } from '../task-details/task-details.component';
 import { Subject } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TaskSmallListComponent } from '../task-small-list/task-small-list.component';
-
 import { ShowOnDeviceDirective } from '@shared';
 import { Resolutions } from '@constants';
 
