@@ -4,13 +4,12 @@ import { ITaskItem } from '@models';
 import { Observable, from, throwError } from 'rxjs';
 import { delay, tap, catchError, map } from 'rxjs/operators';
 import { openDB, IDBPDatabase } from 'idb';
+import { DataBaseName, StoreName } from '@constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  private dbName = 'TODOListDB';
-  private storeName = 'tasks';
   private maxTaskValueLength = 1000;
   private dbPromise: Promise<IDBPDatabase>;
 
@@ -19,18 +18,17 @@ export class TaskService {
   }
 
   private async initDB(): Promise<IDBPDatabase> {
-    return openDB(this.dbName, 1, {
+    return openDB(DataBaseName, 1, {
       upgrade(db) {
-        if (!db.objectStoreNames.contains('taskList')) {
-          db.createObjectStore('taskList', { keyPath: 'id', autoIncrement: true });
+        if (!db.objectStoreNames.contains(StoreName)) {
+          db.createObjectStore(StoreName, { keyPath: 'id', autoIncrement: true });
         }
       },
     });
   }
 
   fetchTasks(): Observable<ITaskItem[]> {
-    return from(this.dbPromise.then((db) => db.getAll(this.storeName))).pipe(
-      delay(1000), // Имитация задержки сети
+    return from(this.dbPromise.then((db) => db.getAll(StoreName))).pipe(
       map((tasks) =>
         tasks.map((task) => ({
           ...task,
@@ -63,7 +61,7 @@ export class TaskService {
     };
 
     return from(
-      this.dbPromise.then((db) => db.add(this.storeName, newTaskItem))
+      this.dbPromise.then((db) => db.add(StoreName, newTaskItem))
     ).pipe(
       map((id) => {
         const task: ITaskItem = {
@@ -92,7 +90,7 @@ export class TaskService {
     }
 
     return from(
-      this.dbPromise.then((db) => db.put(this.storeName, taskItem))
+      this.dbPromise.then((db) => db.put(StoreName, taskItem))
     ).pipe(
       map(() => taskItem),
       catchError((error) => {
@@ -104,7 +102,7 @@ export class TaskService {
 
   removeTaskById(id: number): Observable<number> {
     return from(
-      this.dbPromise.then((db) => db.delete(this.storeName, id))
+      this.dbPromise.then((db) => db.delete(StoreName, id))
     ).pipe(
       map(() => id),
       catchError((error) => {

@@ -1,18 +1,24 @@
-import { TableCellType } from "@enums"
+import { TableCellType } from '@enums';
 
 /**
- * Данные таблицы 
+ * Данные таблицы
  */
 export interface ITableModel {
-    rows: ITableCell[][]
+  rows: ITableRow[];
+}
+
+export interface ITableRow {
+  id: number;
+  cells: ITableCell[];
 }
 
 /**
  * Ячейка таблицы
  */
 export interface ITableCell {
-    value: string
-    align: 'left' | 'right' | 'center'
-    type: TableCellType
-    size?: string
+  id: number;
+  value: string;
+  align: 'left' | 'right' | 'center';
+  type: TableCellType;
+  size?: string;
 }

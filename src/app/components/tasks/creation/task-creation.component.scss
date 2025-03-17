@@ -1,11 +1,12 @@
 @use "sass-rem" as rem;
+@use "variables";
 @use "forms";
 
 :host {
     flex-basis: 50%;
     padding-left: rem.convert(13px);
     // tablet, phone
-    @media (max-width: 992px) {
+    @media (max-width: variables.$tabletMaxWidth) {
         padding: 0;
     }
 
@@ -35,7 +36,7 @@
                 padding: 0;
                 margin: 0;
 
-                @media (max-width: 992px) {
+                @media (max-width: variables.$tabletMaxWidth) {
                     display: block;
                 }
             }

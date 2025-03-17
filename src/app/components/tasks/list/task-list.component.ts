@@ -6,9 +6,9 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { ITableCell, ITableModel, ITaskItem } from '@models';
+import { ITableCell, ITableModel, ITableRow, ITaskItem } from '@models';
 import { TableCellType } from '@enums';
-import { TodoTableHeaderRow } from '@data';
+import { TodoTableHeaderCells } from '@data';
 import { TableComponent } from '@shared';
 
 @Component({
@@ -32,26 +32,36 @@ export class TaskListComponent implements OnChanges {
     }
   }
 
-  generateTableRows(tasks: ITaskItem[]): ITableCell[][] {
-    const dataRows: ITableCell[][] = tasks.map((item) => {
+  generateTableRows(tasks: ITaskItem[]): ITableRow[] {
+    // Первые id занимают ячейки хейдера таблицы
+    let lastCellId = TodoTableHeaderCells.length + 1;
+    let lastRowId = 0;
+
+    const dataRows: ITableRow[] = tasks.map((item) => {
       {
-        return [
+        const cells: ITableCell[] = [
           {
+            id: lastCellId,
             value: item.value,
             align: 'left',
             type: TableCellType.TEXT,
           },
           {
+            id: lastCellId + 1,
             value: item.status,
             align: 'center',
             type: TableCellType.STATUS,
-            size: '102px',
           },
         ];
+
+        lastRowId += 1;
+        lastCellId += 2;
+
+        return { id: lastRowId, cells };
       }
     });
 
-    return [TodoTableHeaderRow, ...dataRows];
+    return [{ id: 0, cells: TodoTableHeaderCells }, ...dataRows];
   }
 
   handleClickStatusbutton(index: number) {
