@@ -5,14 +5,12 @@
 </div>
 <div class="sections-container" cdkDropListGroup>
   @for (section of sections; track section.type; let index = $index) {
-  <!-- <div class="section" cdkDropList [cdkDropListData]="sections[index].tasks" [id]="section.type"
-    [cdkDropListConnectedTo]="getOtherSectionsData(index)" (cdkDropListDropped)="drop($event)"> -->
     <div class="section" 
      cdkDropList 
      [cdkDropListData]="sections[index].tasks"
      [cdkDropListConnectedTo]="getOtherSectionsData(index)"
      (cdkDropListDropped)="drop($event)"
-     [id]="section.type"> <!-- Уникальный идентификатор -->
+     [id]="section.type"> 
     <div class="status-card">
       <p>{{ section.title }}</p>
     </div>
