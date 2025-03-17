@@ -3,7 +3,7 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TaskStatus } from '@enums';
 import { ITaskItem, TStatusButton } from '@models';
-import { AlertService, TaskService } from '@services';
+import { AlertService } from '@services';
 import { PopupComponent } from '@shared';
 
 @Component({
@@ -53,10 +53,7 @@ export class TaskDetailsComponent {
     },
   ];
 
-  constructor(
-    private taskService: TaskService,
-    private alertService: AlertService
-  ) {}
+  constructor(private alertService: AlertService) {}
 
   open(taskItem: ITaskItem) {
     this.taskItem = taskItem;
@@ -70,10 +67,23 @@ export class TaskDetailsComponent {
     this.popup.show();
   }
 
-  changeStatus(newStatus: TaskStatus) {
+  handleSaveButtonClick() {
+    this.changeValue();
+  }
+
+  handleRemoveButtonClick() {
+    this.removeItem(this.taskItem.id);
+  }
+
+  private changeStatus(newStatus: TaskStatus) {
     if (newStatus != this.taskItem.status) {
       this.currentStatus = newStatus;
-      this.updateTask();
+      const changedTaskItem = {
+        ...this.taskItem,
+        status: newStatus,
+      };
+      this.updateTaskItemOutput.emit(changedTaskItem);
+      this.popup.dismiss();
     } else {
       this.alertService.showAlert(
         `Задача уже находится в статусе ${newStatus}`
@@ -81,42 +91,22 @@ export class TaskDetailsComponent {
     }
   }
 
-  handleSaveButtonClick() {
-    if (
-      this.taskValueInput.value &&
-      this.taskValueInput.value.length > 0 &&
-      this.taskValueInput.value != this.taskItem.value
-    ) {
-      this.updateTask();
+  private changeValue() {
+    const newValue = this.taskValueInput.value ?? '';
+    if (newValue.length > 0 && newValue != this.taskItem.value) {
+      const changedTaskItem = {
+        ...this.taskItem,
+        value: newValue,
+      };
+      this.updateTaskItemOutput.emit(changedTaskItem);
+      this.popup.dismiss();
     } else {
       this.alertService.showAlert('Нет изменений');
     }
   }
 
-  updateTask() {
-    const newValue = this.taskValueInput.value ?? '';
-    const changedTaskItem = {
-      ...this.taskItem,
-      value: newValue,
-      status: this.currentStatus,
-    };
-
-    this.taskService.updateTask(changedTaskItem).subscribe((result) => {
-      if (result != null) {
-        this.updateTaskItemOutput.emit(changedTaskItem);
-        this.popup.dismiss();
-      }
-    });
-  }
-
-  handleRemoveButtonClick() {
-    this.taskService
-      .removeTaskById(this.taskItem.id)
-      .subscribe((idToRemove) => {
-        if (idToRemove != null) {
-          this.removeTaskItemOutput.emit(this.taskItem.id);
-          this.popup.dismiss();
-        }
-      });
+  private removeItem(id: number) {
+    this.removeTaskItemOutput.emit(id);
+    this.popup.dismiss();
   }
 }
