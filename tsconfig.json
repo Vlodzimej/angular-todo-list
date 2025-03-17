@@ -26,7 +26,7 @@
       "@enums": ["app/enums"],
       "@models": ["app/models"],
       "@data": ["app/data"],
-      "@constants": ["app/contants"]
+      "@constants": ["app/constants"]
     }
   },
   "angularCompilerOptions": {

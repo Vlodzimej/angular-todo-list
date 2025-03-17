@@ -14,8 +14,9 @@ import { TaskDetailsComponent } from '../task-details/task-details.component';
 import { Subject } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TaskSmallListComponent } from '../task-small-list/task-small-list.component';
-import { ShowOnDeviceDirective } from 'app/shared/directives';
-import { Resolutions } from 'app/constants';
+
+import { ShowOnDeviceDirective } from '@shared';
+import { Resolutions } from '@constants';
 
 @Component({
   selector: 'todo-main',
