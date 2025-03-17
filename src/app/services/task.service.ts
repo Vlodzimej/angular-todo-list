@@ -9,7 +9,7 @@ import { openDB, IDBPDatabase } from 'idb';
   providedIn: 'root',
 })
 export class TaskService {
-  private dbName = 'TaskDB';
+  private dbName = 'TODOListDB';
   private storeName = 'tasks';
   private maxTaskValueLength = 1000;
   private dbPromise: Promise<IDBPDatabase>;
@@ -21,8 +21,8 @@ export class TaskService {
   private async initDB(): Promise<IDBPDatabase> {
     return openDB(this.dbName, 1, {
       upgrade(db) {
-        if (!db.objectStoreNames.contains('tasks')) {
-          db.createObjectStore('tasks', { keyPath: 'id', autoIncrement: true });
+        if (!db.objectStoreNames.contains('taskList')) {
+          db.createObjectStore('taskList', { keyPath: 'id', autoIncrement: true });
         }
       },
     });
