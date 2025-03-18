@@ -7,10 +7,12 @@ import { AlertComponent } from '@shared';
 export class AlertService {
   private alertPopupComponent: AlertComponent | null = null;
 
+  /** Получение ссылки на компонент алерта */
   registerPopupComponent(component: AlertComponent): void {
     this.alertPopupComponent = component;
   }
 
+  /** Отображение алерта */
   showAlert(message: string): void {
     if (this.alertPopupComponent) {
       this.alertPopupComponent.show(message);
@@ -19,6 +21,7 @@ export class AlertService {
     }
   }
 
+  /** Закрытие алерта */
   dismiss() {
     this.alertPopupComponent?.dismiss();
   }
