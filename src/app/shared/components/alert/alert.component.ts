@@ -1,20 +1,16 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { PopupComponent } from '../popup/popup.component';
 
 @Component({
-  selector: 'popup-alert',
+  selector: 'app-popup-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
   imports: [PopupComponent],
 })
-export class AlertComponent implements OnInit {
+export class AlertComponent {
   @ViewChild(PopupComponent) popup?: PopupComponent;
 
-  message: string = '';
-
-  constructor() {}
-
-  ngOnInit() {}
+  message = '';
 
   show(message: string) {
     this.message = message;

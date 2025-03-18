@@ -5,7 +5,7 @@ import { ITableModel } from '@models';
 import { LimitToPipe } from 'app/shared/pipes/limit-to.pipe';
 
 @Component({
-  selector: 'todo-table',
+  selector: 'app-todo-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   imports: [CommonModule, LimitToPipe],
@@ -13,7 +13,7 @@ import { LimitToPipe } from 'app/shared/pipes/limit-to.pipe';
 export class TableComponent {
   @Input({ required: true }) data!: ITableModel;
   @Input({ required: true }) limit!: number;
-  @Input() placeholder: string = '';
+  @Input() placeholder = '';
 
   @Output() clickStatusButton = new EventEmitter<number>();
 

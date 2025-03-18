@@ -18,7 +18,7 @@ import { StatusTitlePipe } from '@shared';
 import { TaskSectionsBlank } from '@data';
 
 @Component({
-  selector: 'task-board',
+  selector: 'app-task-board',
   templateUrl: './task-board.component.html',
   styleUrls: ['./task-board.component.scss'],
   imports: [CommonModule, DragDropModule, StatusTitlePipe],
@@ -31,7 +31,7 @@ export class TaskBoardComponent implements OnChanges {
   sections: ITaskSection[] = TaskSectionsBlank;
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.hasOwnProperty('taskList')) {
+    if (Object.hasOwn(changes, 'taskList')) {
       const taskList = changes['taskList'].currentValue;
       this.fillTaskSections(taskList);
     }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TaskStatus } from '@enums';
 import { ITaskItem } from '@models';
 import { Observable, from, throwError } from 'rxjs';
-import { delay, tap, catchError, map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { openDB, IDBPDatabase } from 'idb';
 import { DataBaseName, StoreName } from '@constants';
 

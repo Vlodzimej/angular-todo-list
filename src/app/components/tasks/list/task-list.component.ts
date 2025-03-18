@@ -13,7 +13,7 @@ import { TableComponent } from '@shared';
 import { GetStatusTitleForTask } from '@helpers';
 
 @Component({
-  selector: 'task-list',
+  selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss'],
   imports: [TableComponent],
@@ -27,7 +27,7 @@ export class TaskListComponent implements OnChanges {
   tableData: ITableModel = { rows: [] };
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.hasOwnProperty('taskList')) {
+    if (Object.hasOwn(changes, 'taskList')) {
       const taskList = changes['taskList'].currentValue;
       this.tableData.rows = this.generateTableRows(taskList);
     }

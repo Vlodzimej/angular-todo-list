@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'popup',
+  selector: 'app-popup',
   templateUrl: './popup.component.html',
   styleUrls: ['./popup.component.scss'],
   imports: [CommonModule]
 })
 export class PopupComponent {
-  @Input() title: string = "";
+  @Input() title = '';
   @Input() isCloseButtonVisible = true;
 
   isVisible = false;
@@ -30,7 +30,7 @@ export class PopupComponent {
     e.stopPropagation();
   }
 
-  handleCloseButtonClick(e: Event) {
+  handleCloseButtonClick() {
     this.dismiss();
   }
 }

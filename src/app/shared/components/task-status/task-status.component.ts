@@ -1,20 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ITaskStatusItem } from '@models';
 import { StatusTitlePipe } from 'app/shared/pipes';
 
 @Component({
-  selector: 'task-status',
+  selector: 'app-task-status',
   templateUrl: './task-status.component.html',
   styleUrls: ['./task-status.component.scss'],
   imports: [StatusTitlePipe]
 })
-export class TaskCategoryComponent implements OnInit {
-
+export class TaskCategoryComponent {
   @Input() model!: ITaskStatusItem
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ITaskItem } from '@models';
 
 @Component({
-  selector: 'task-small-list',
+  selector: 'app-task-small-list',
   templateUrl: './task-small-list.component.html',
   styleUrls: ['./task-small-list.component.scss'],
 })

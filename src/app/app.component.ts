@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { AlertComponent } from '@shared';
 import { AlertService } from '@services';
 import { MainComponent } from '@pages';
@@ -9,7 +9,7 @@ import { MainComponent } from '@pages';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   @ViewChild(AlertComponent) alertComponent!: AlertComponent;
 
   constructor(private alertService: AlertService) {}

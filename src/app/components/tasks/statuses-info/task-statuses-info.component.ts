@@ -4,7 +4,7 @@ import { TaskCategoryComponent } from '@shared';
 import { ITaskStatusItem } from '@models';
 
 @Component({
-  selector: 'task-statuses-info',
+  selector: 'app-task-statuses-info',
   templateUrl: './task-statuses-info.component.html',
   styleUrls: ['./task-statuses-info.component.scss'],
   imports: [CommonModule, TaskCategoryComponent],

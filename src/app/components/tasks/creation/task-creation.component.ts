@@ -6,7 +6,7 @@ import { ITaskItem } from '@models';
 import { AlertService, TaskService } from '@services';
 
 @Component({
-  selector: 'task-creation',
+  selector: 'app-task-creation',
   templateUrl: './task-creation.component.html',
   styleUrls: ['./task-creation.component.scss'],
   imports: [ReactiveFormsModule, CommonModule],

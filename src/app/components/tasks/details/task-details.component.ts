@@ -7,7 +7,7 @@ import { AlertService } from '@services';
 import { PopupComponent } from '@shared';
 
 @Component({
-  selector: 'task-details',
+  selector: 'app-task-details',
   templateUrl: './task-details.component.html',
   styleUrls: ['./task-details.component.scss'],
   imports: [CommonModule, PopupComponent, ReactiveFormsModule],

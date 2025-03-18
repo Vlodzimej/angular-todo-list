@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, DestroyRef, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, DestroyRef, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   TaskStatusesInfoComponent,
@@ -19,7 +19,7 @@ import { MinTaskItemsNumberToShow, Resolutions } from '@constants';
 import { GetStatusPriority } from '@helpers';
 
 @Component({
-  selector: 'todo-main',
+  selector: 'app-todo-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
   imports: [
@@ -46,7 +46,7 @@ export class MainComponent implements OnInit {
   taskStatusItems: ITaskStatusItem[] = TaskStatuses;
 
   /** Флаг видимости кнопки «Показать ещё» */
-  isMoreButtonVisible: boolean = false;
+  isMoreButtonVisible = false;
 
   /** Минимальное кол-во отображаемых задач для видимости из шаблона */
   minItemsNumberToShow = MinTaskItemsNumberToShow;
