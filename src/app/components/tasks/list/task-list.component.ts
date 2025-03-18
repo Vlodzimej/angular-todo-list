@@ -33,6 +33,7 @@ export class TaskListComponent implements OnChanges {
     }
   }
 
+  /** Создание данных для таблицы */
   generateTableRows(tasks: ITaskItem[]): ITableRow[] {
     // Первые id занимают ячейки хейдера таблицы
     let lastCellId = TodoTableHeaderCells.length + 1;
@@ -65,6 +66,7 @@ export class TaskListComponent implements OnChanges {
     return [{ id: 0, cells: TodoTableHeaderCells }, ...dataRows];
   }
 
+  /** Обработчик нажатия по статусу задачи */
   handleClickStatusbutton(index: number) {
     this.showTaskDetails.emit(index);
   }
