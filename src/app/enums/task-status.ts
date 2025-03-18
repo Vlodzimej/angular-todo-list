@@ -2,9 +2,9 @@
  * Статусы задач
  */
 export enum TaskStatus {
-  OPENED = 'Открыто',
-  IN_PROGRESS = 'В работе',
-  CLOSED = 'Закрыто',
+  OPENED = 'OPENED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  CLOSED = 'CLOSED',
 }
 
 export const GetStatusPriority = (status: TaskStatus): number => {
@@ -16,6 +16,6 @@ export const GetStatusPriority = (status: TaskStatus): number => {
     case TaskStatus.CLOSED:
       return 3;
     default:
-      return 0; 
+      return 0;
   }
 };

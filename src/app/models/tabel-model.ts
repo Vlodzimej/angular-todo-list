@@ -7,6 +7,9 @@ export interface ITableModel {
   rows: ITableRow[];
 }
 
+/**
+ * Строка таблицы
+ */
 export interface ITableRow {
   id: number;
   cells: ITableCell[];

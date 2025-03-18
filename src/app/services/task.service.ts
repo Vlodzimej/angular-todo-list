@@ -17,6 +17,7 @@ export class TaskService {
     this.dbPromise = this.initDB();
   }
 
+  /** Инициализация БД */
   private async initDB(): Promise<IDBPDatabase> {
     return openDB(DataBaseName, 1, {
       upgrade(db) {
@@ -27,6 +28,7 @@ export class TaskService {
     });
   }
 
+  /** Получение списка задач */
   fetchTasks(): Observable<ITaskItem[]> {
     return from(this.dbPromise.then((db) => db.getAll(StoreName))).pipe(
       map((tasks) =>
@@ -42,6 +44,7 @@ export class TaskService {
     );
   }
 
+  /** Добавление новой задачи */
   addTask(value?: string): Observable<ITaskItem> {
     const trimmedValue = (value ?? '').trim();
 
@@ -70,9 +73,6 @@ export class TaskService {
         };
         return task;
       }),
-      tap((task) => {
-        console.log('Task added:', task);
-      }),
       catchError((error) => {
         console.error('Error adding task:', error);
         throw new Error('Failed to add task');
@@ -80,6 +80,7 @@ export class TaskService {
     );
   }
 
+  /** Изменение существующей задачи */
   updateTask(taskItem: ITaskItem): Observable<ITaskItem> {
     if (!taskItem) {
       return throwError(() => new Error('Task item is undefined or null'));
@@ -100,6 +101,7 @@ export class TaskService {
     );
   }
 
+  /** Удаление задачи по идентификатору */
   removeTaskById(id: number): Observable<number> {
     return from(
       this.dbPromise.then((db) => db.delete(StoreName, id))

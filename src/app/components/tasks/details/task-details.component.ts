@@ -23,6 +23,7 @@ export class TaskDetailsComponent {
   currentStatus!: TaskStatus;
   statusButtons: TStatusButton[] = [];
 
+  /** Модель списка кнопок изменения статуса задачи */
   private allStatusButtons: TStatusButton[] = [
     {
       title: 'Отложить',
@@ -44,6 +45,7 @@ export class TaskDetailsComponent {
     },
   ];
 
+    /** Модель списка кнопок изменения статуса задачи, если задача в статусе CLOSED */
   private statusButtonsForClosedTask: TStatusButton[] = [
     {
       title: 'Переоткрыть',
@@ -55,6 +57,7 @@ export class TaskDetailsComponent {
 
   constructor(private alertService: AlertService) {}
 
+  /** Отображение и инициализация данных данного компонента */
   open(taskItem: ITaskItem) {
     this.taskItem = taskItem;
     this.currentStatus = taskItem.status;
@@ -67,14 +70,17 @@ export class TaskDetailsComponent {
     this.popup.show();
   }
 
+  /** Обработчик сохранения изменений */
   handleSaveButtonClick() {
     this.changeValue();
   }
 
+  /** Обработчик удаления задачи */
   handleRemoveButtonClick() {
     this.removeItem(this.taskItem.id);
   }
 
+  /** Изменение статуса задачи */
   private changeStatus(newStatus: TaskStatus) {
     if (newStatus != this.taskItem.status) {
       this.currentStatus = newStatus;
@@ -91,6 +97,7 @@ export class TaskDetailsComponent {
     }
   }
 
+  /** Изменение текста задачи */
   private changeValue() {
     const newValue = this.taskValueInput.value ?? '';
     if (newValue.length > 0 && newValue != this.taskItem.value) {

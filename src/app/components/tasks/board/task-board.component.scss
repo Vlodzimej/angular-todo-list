@@ -10,7 +10,7 @@
     .header {
         display: flex;
         justify-content: center;
-        font-weight: 700;
+        font-weight: variables.$font-weight-bold;
         margin-bottom: rem.convert(40px);
     }
 
@@ -32,7 +32,7 @@
                 justify-items: center;
                 align-content: center;
                 color: variables.$text-primary;
-                font-weight: 700;
+                font-weight: variables.$font-weight-bold;
             }
 
             .tasks-card {
@@ -70,7 +70,7 @@
     border-radius: rem.convert(12px);
     padding: rem.convert(24px 32px);
     width: rem.convert(357px);
-    font-weight: 700;
+    font-weight: variables.$font-weight-bold;
     background-color: variables.$background-primary;
     transition: box-shadow 0.2s ease;
     position: relative;

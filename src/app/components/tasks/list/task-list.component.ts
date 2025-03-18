@@ -10,6 +10,7 @@ import { ITableCell, ITableModel, ITableRow, ITaskItem } from '@models';
 import { TableCellType } from '@enums';
 import { TodoTableHeaderCells } from '@data';
 import { TableComponent } from '@shared';
+import { GetStatusTitleForTask } from '@helpers';
 
 @Component({
   selector: 'task-list',
@@ -32,6 +33,7 @@ export class TaskListComponent implements OnChanges {
     }
   }
 
+  /** Создание данных для таблицы */
   generateTableRows(tasks: ITaskItem[]): ITableRow[] {
     // Первые id занимают ячейки хейдера таблицы
     let lastCellId = TodoTableHeaderCells.length + 1;
@@ -48,7 +50,7 @@ export class TaskListComponent implements OnChanges {
           },
           {
             id: lastCellId + 1,
-            value: item.status,
+            value: GetStatusTitleForTask(item.status),
             align: 'center',
             type: TableCellType.STATUS,
           },
@@ -64,6 +66,7 @@ export class TaskListComponent implements OnChanges {
     return [{ id: 0, cells: TodoTableHeaderCells }, ...dataRows];
   }
 
+  /** Обработчик нажатия по статусу задачи */
   handleClickStatusbutton(index: number) {
     this.showTaskDetails.emit(index);
   }

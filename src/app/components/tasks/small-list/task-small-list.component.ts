@@ -10,6 +10,7 @@ export class TaskSmallListComponent {
   @Input() taskList: ITaskItem[] = [];
   @Output() showTaskDetails = new EventEmitter<number>();
 
+  /** Обработчик нажатия по статусу задачи */
   handleClickStatusbutton(index: number) {
     this.showTaskDetails.emit(index);
   }

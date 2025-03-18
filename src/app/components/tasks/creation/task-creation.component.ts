@@ -22,16 +22,19 @@ export class TaskCreationComponent {
     private destroyRef: DestroyRef
   ) {}
 
+  /** Обработчик формы */
   handleSubmit(e: Event) {
     e.preventDefault();
     this.addTask();
   }
 
+  /** Обработчик сброса значения в поле текста задачи */
   handleResetInput(e: Event) {
     e.preventDefault();
     this.taskValueInput.setValue('');
   }
 
+  /** Добавление новой задачи */
   private addTask() {
     const text = (this.taskValueInput.value ?? '').trim();
     if (text.length == 0) {

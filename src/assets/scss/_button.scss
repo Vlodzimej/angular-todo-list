@@ -4,7 +4,7 @@
 
 .success-button {
     @extend .text-md;
-    font-weight: 700;
+    font-weight: variables.$font-weight-bold;
     color: variables.$color-button-green;
     padding: rem.convert(12px 103.5px);
     border-radius: rem.convert(12px);

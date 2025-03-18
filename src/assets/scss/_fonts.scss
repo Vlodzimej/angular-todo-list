@@ -9,8 +9,8 @@
 
 @each $name, $properties in variables.$font-sizes {
     .#{$name} {
-        font-size: map-get($properties, size);
-        line-height: map-get($properties, line-height);
+        font-size: map.get($properties, size);
+        line-height: map.get($properties, line-height);
     }
 }
 
@@ -24,38 +24,38 @@
   $font-sizes: variables.$font-sizes;
 
   // Базовые стили
-  font-size: map-get(map-get($font-sizes, $class), size);
-  line-height: map-get(map-get($font-sizes, $class), line-height);
+  font-size: map.get(map.get($font-sizes, $class), size);
+  line-height: map.get(map.get($font-sizes, $class), line-height);
 
   // Стили для desktop
   @if $desktop-class {
     @media (min-width: variables.$desktopMinWidth) {
-      font-size: map-get(map-get($font-sizes, $desktop-class), size);
-      line-height: map-get(map-get($font-sizes, $desktop-class), line-height);
+      font-size: map.get(map.get($font-sizes, $desktop-class), size);
+      line-height: map.get(map.get($font-sizes, $desktop-class), line-height);
     }
   }
 
   // Стили для laptop
   @if $laptop-class {
     @media (min-width: variables.$laptopMinWidth) and (max-width: variables.$laptopMaxWidth) {
-      font-size: map-get(map-get($font-sizes, $laptop-class), size);
-      line-height: map-get(map-get($font-sizes, $laptop-class), line-height);
+      font-size: map.get(map.get($font-sizes, $laptop-class), size);
+      line-height: map.get(map.get($font-sizes, $laptop-class), line-height);
     }
   }
 
   // Стили для tablet
   @if $tablet-class {
     @media (min-width: variables.$tabletMinWidth) and (max-width: variables.$tabletMaxWidth) {
-      font-size: map-get(map-get($font-sizes, $tablet-class), size);
-      line-height: map-get(map-get($font-sizes, $tablet-class), line-height);
+      font-size: map.get(map.get($font-sizes, $tablet-class), size);
+      line-height: map.get(map.get($font-sizes, $tablet-class), line-height);
     }
   }
 
   // Стили для phone
   @if $phone-class {
     @media (min-width: variables.$phoneMinWidth) and (max-width: variables.$phoneMaxWidth) {
-      font-size: map-get(map-get($font-sizes, $phone-class), size);
-      line-height: map-get(map-get($font-sizes, $phone-class), line-height);
+      font-size: map.get(map.get($font-sizes, $phone-class), size);
+      line-height: map.get(map.get($font-sizes, $phone-class), line-height);
     }
   }
 }

@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -15,34 +14,21 @@ import {
   DragDropModule,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { StatusTitlePipe } from '@shared';
+import { TaskSectionsBlank } from '@data';
 
 @Component({
   selector: 'task-board',
   templateUrl: './task-board.component.html',
   styleUrls: ['./task-board.component.scss'],
-  imports: [CommonModule, DragDropModule],
+  imports: [CommonModule, DragDropModule, StatusTitlePipe],
 })
 export class TaskBoardComponent implements OnChanges {
   @Input() taskList: ITaskItem[] = [];
   @Output() changeTaskStatus = new EventEmitter<ITaskItem>();
 
-  sections: ITaskSection[] = [
-    {
-      title: 'Открыто',
-      type: TaskStatus.OPENED,
-      tasks: [],
-    },
-    {
-      title: 'В работе',
-      type: TaskStatus.IN_PROGRESS,
-      tasks: [],
-    },
-    {
-      title: 'Закрыто',
-      type: TaskStatus.CLOSED,
-      tasks: [],
-    },
-  ];
+  /** Начальные данные секций задач для отображения */
+  sections: ITaskSection[] = TaskSectionsBlank;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.hasOwnProperty('taskList')) {
@@ -51,6 +37,10 @@ export class TaskBoardComponent implements OnChanges {
     }
   }
 
+  /**
+   * Заполнение секций задач по статусам
+   * @param taskList - отсортированный список задач
+   */
   private fillTaskSections(taskList: ITaskItem[]) {
     this.sections = this.sections.map((section) => ({ ...section, tasks: [] }));
 
@@ -81,7 +71,11 @@ export class TaskBoardComponent implements OnChanges {
     });
   }
 
-  drop(event: CdkDragDrop<ITaskItem[]>) {
+  /**
+   * Обработчик перемещения задачи между секциями
+   * @param event 
+   */
+  handleTaskDrop(event: CdkDragDrop<ITaskItem[]>) {
     if (event.previousContainer !== event.container) {
       transferArrayItem(
         event.previousContainer.data,
@@ -102,6 +96,11 @@ export class TaskBoardComponent implements OnChanges {
     }
   }
 
+  /**
+   * Получение всех секций исключая указанную секцию
+   * @param indexToExclude - индекс секции для исключения из результата
+   * @returns 
+   */
   getOtherSectionsData(indexToExclude: number): string[] {
     return this.sections
       .filter((_, index) => index !== indexToExclude)

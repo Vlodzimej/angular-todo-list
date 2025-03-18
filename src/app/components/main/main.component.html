@@ -7,7 +7,7 @@
     <task-statuses-info [taskStatusItems]="taskStatusItems"></task-statuses-info>
 
     <task-creation (addTaskEvent)="handleAddTaskEvent($event)"></task-creation>
-
+    
     <task-list [taskList]="taskList" [itemsCountToShow]="currentItemsNumberToShow"
       (showTaskDetails)="handleShowTaskDetails($event)" appShowOnDevice
       [minWidth]="resolutions.tablet.minWidth"></task-list>
@@ -15,13 +15,14 @@
     <task-small-list [taskList]="taskList" (showTaskDetails)="handleShowTaskDetails($event)" appShowOnDevice
       [minWidth]="resolutions.phone.minWidth" [maxWidth]="resolutions.phone.maxWidth"></task-small-list>
   </div>
-  @if (taskList.length > 5) {
+
   <div class="more-button-container" appShowOnDevice [minWidth]="resolutions.tablet.minWidth" display="flex">
+    @if (taskList.length > 5) {
     <button class="success-button" (click)="handleMoreButtonClick()">
       {{ currentItemsNumberToShow == minItemsNumberToShow ? 'Показать еще' : 'Скрыть' }}
     </button>
+    }
   </div>
-  }
 </div>
 
 @if (taskList.length > 0) {

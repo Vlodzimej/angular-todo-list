@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   TaskStatusesInfoComponent,
@@ -15,7 +15,7 @@ import { ITaskItem, ITaskStatusItem } from '@models';
 import { AlertService, TaskService } from '@services';
 import { Subject } from 'rxjs';
 import { ShowOnDeviceDirective } from '@shared';
-import { Resolutions } from '@constants';
+import { MinTaskItemsNumberToShow, Resolutions } from '@constants';
 
 @Component({
   selector: 'todo-main',
@@ -33,19 +33,25 @@ import { Resolutions } from '@constants';
   ],
 })
 export class MainComponent implements OnInit {
-  @ViewChild(TaskDetailsComponent) taskDetailsPopup!: TaskDetailsComponent;
+  @ViewChild(TaskDetailsComponent) taskDetailsPopup?: TaskDetailsComponent;
+  @ViewChild(TaskListComponent, { read: ElementRef }) taskListElement?: ElementRef;
 
   resolutions = Resolutions;
 
   taskList$ = new Subject<ITaskItem[]>();
   taskList: ITaskItem[] = [];
+
+  /** Статусы со счетчиками задач для отображения информации */
   taskStatusItems: ITaskStatusItem[] = TaskStatuses;
 
-  taskItem!: ITaskItem;
-
+  /** Флаг видимости кнопки «Показать ещё» */
   isMoreButtonVisible: boolean = false;
-  minItemsNumberToShow = 5;
-  currentItemsNumberToShow = 5;
+
+  /** Минимальное кол-во отображаемых задач для видимости из шаблона */
+  minItemsNumberToShow = MinTaskItemsNumberToShow;
+
+  /** Текущее кол-во отображаемых элементов */
+  currentItemsNumberToShow = MinTaskItemsNumberToShow;
 
   constructor(
     private taskService: TaskService,
@@ -54,6 +60,7 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Подписываемся на событие изменения списка залач, производим сортировку и обновления счетчиков задач по статусам
     this.taskList$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((taskItems) => {
@@ -61,15 +68,19 @@ export class MainComponent implements OnInit {
         this.refreshTaskStatusesInfo(taskItems);
       });
 
+    // Получение списка задач 
     this.taskService
       .fetchTasks()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
         this.taskList$.next(data);
-        this.refreshTaskStatusesInfo(this.taskList);
       });
   }
 
+  /**
+   * Обновление счетчиков задач по статусам
+   * @param taskList 
+   */
   refreshTaskStatusesInfo(taskList: ITaskItem[]) {
     this.taskStatusItems = TaskStatuses.map((status) => ({
       ...status,
@@ -98,29 +109,55 @@ export class MainComponent implements OnInit {
     });
   }
 
+  /**
+   * Обработчик кнопки «Показать ещё»
+   */
   handleMoreButtonClick() {
     this.currentItemsNumberToShow =
-      this.currentItemsNumberToShow == this.minItemsNumberToShow
+      this.currentItemsNumberToShow == MinTaskItemsNumberToShow
         ? this.taskList.length
-        : this.minItemsNumberToShow;
+        : MinTaskItemsNumberToShow;
+    if (this.currentItemsNumberToShow == MinTaskItemsNumberToShow) {
+      this.scrollToTaskList();  
+    }
   }
 
+  /**
+   * Обработчик добавления новой задачи
+   * @param newTaskItem - созданная задача
+   */
   handleAddTaskEvent(newTaskItem: ITaskItem) {
     this.taskList$.next([newTaskItem, ...this.taskList]);
   }
 
+  /**
+   * Обработчик для отображения карточки задачи
+   * @param index - индек задачи
+   */
   handleShowTaskDetails(index: number) {
-    this.taskDetailsPopup.open(this.taskList[index]);
+    this.taskDetailsPopup?.open(this.taskList[index]);
   }
 
+  /**
+   * Обработчик обновления задачи
+   * @param taskItem - изменённая задача
+   */
   handleUpdateTaskItem(taskItem: ITaskItem) {
     this.updateTask(taskItem);
   }
 
+  /**
+   * Обработчик удаления задачи
+   * @param id - идентификатор задачи
+   */
   handleRemoveTaskItemById(id: number) {
     this.removeTaskItemById(id);
   }
 
+  /**
+   * Удаление задачи
+   * @param id  - идентификатор задачи
+   */
   private removeTaskItemById(id: number) {
     this.taskService
       .removeTaskById(id)
@@ -138,6 +175,11 @@ export class MainComponent implements OnInit {
       });
   }
 
+  /**
+   * Обновление задачи
+   * @param changedTaskItem - изменённая задача
+   * @returns 
+   */
   private updateTask(changedTaskItem: ITaskItem) {
     const indexToUpdate = this.taskList.findIndex(
       (taskItem) => taskItem.id === changedTaskItem.id
@@ -166,6 +208,11 @@ export class MainComponent implements OnInit {
       });
   }
 
+  /**
+   * Сортировка задач
+   * @param taskItems - неотсортированный список задач
+   * @returns 
+   */
   private sortTaskItems(taskItems: ITaskItem[]): ITaskItem[] {
     return taskItems.sort((a, b) => {
       const statusPriorityA = GetStatusPriority(a.status);
@@ -177,5 +224,14 @@ export class MainComponent implements OnInit {
 
       return b.id - a.id;
     });
+  }
+
+  /**
+   * Прокрутка до начала таблицы списка задач
+   */
+  private scrollToTaskList() {
+    if (this.taskListElement && this.taskListElement.nativeElement) {
+      this.taskListElement.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }
