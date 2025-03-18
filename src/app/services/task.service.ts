@@ -70,9 +70,6 @@ export class TaskService {
         };
         return task;
       }),
-      tap((task) => {
-        console.log('Task added:', task);
-      }),
       catchError((error) => {
         console.error('Error adding task:', error);
         throw new Error('Failed to add task');

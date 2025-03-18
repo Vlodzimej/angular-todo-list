@@ -32,7 +32,7 @@ import { MinTaskItemsNumberToShow, Resolutions } from '@constants';
     ShowOnDeviceDirective,
   ],
 })
-export class MainComponent implements OnInit, AfterViewInit {
+export class MainComponent implements OnInit {
   @ViewChild(TaskDetailsComponent) taskDetailsPopup?: TaskDetailsComponent;
   @ViewChild(TaskListComponent, { read: ElementRef }) taskListElement?: ElementRef;
 
@@ -58,10 +58,6 @@ export class MainComponent implements OnInit, AfterViewInit {
     private alertService: AlertService,
     private destroyRef: DestroyRef
   ) {}
-
-  ngAfterViewInit(): void {
-    console.log(this.taskListElement); // Проверьте, что элемент существует
-  }
 
   ngOnInit() {
     // Подписываемся на событие изменения списка залач, производим сортировку и обновления счетчиков задач по статусам
