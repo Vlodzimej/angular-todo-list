@@ -8,10 +8,11 @@
     background-color: variables.$background-primary;
     border-radius: rem.convert(16px);
     padding: rem.convert(24px);
-    font-weight: variables.$font-weight-bold;
-    margin-bottom: rem.convert(24px);
-    
+
     .title {
+        font-weight: variables.$font-weight-bold;
+        margin-bottom: rem.convert(24px);
+        
         @include fonts.responsive-text-class(
             $class: "text-big",
             $desktop-class: "text-lg",
