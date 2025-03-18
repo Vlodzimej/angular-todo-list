@@ -1,12 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { MainComponent } from './components/main/main.component';
 import { AlertComponent } from '@shared';
 import { AlertService } from '@services';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MainComponent, AlertComponent],
+  imports: [MainComponent, AlertComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

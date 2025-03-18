@@ -17,7 +17,7 @@
                 @extend .text-md;
                 .column-title {
                     @extend .text-big;
-                    font-weight: 700;
+                    font-weight: variables.$font-weight-bold;
                 }
             }
         }

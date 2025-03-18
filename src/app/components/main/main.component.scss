@@ -24,7 +24,9 @@
         .header {
             margin-top: rem.convert(64px);
             margin-bottom: rem.convert(48px);
-
+            font-weight: variables.$font-weight-bold;
+            justify-content: left;
+            
             // tablet
             @media (min-width: variables.$tabletMinWidth) and (max-width: variables.$tabletMaxWidth) {
                 margin-top: rem.convert(48px);
@@ -45,9 +47,6 @@
                     $tablet-class: "text-xl",
                     $phone-class: "text-lg"
                 );
-
-                font-weight: variables.$font-weight-bold;
-                justify-content: left;
             }
         }
 

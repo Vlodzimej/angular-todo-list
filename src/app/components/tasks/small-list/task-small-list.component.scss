@@ -8,7 +8,7 @@
         margin-bottom: rem.convert(24px);
         border-radius: rem.convert(12px);
         .title {
-            font-weight: 700;
+            font-weight: variables.$font-weight-bold;
         }
     }
 
