@@ -10,6 +10,7 @@ import { ITableCell, ITableModel, ITableRow, ITaskItem } from '@models';
 import { TableCellType } from '@enums';
 import { TodoTableHeaderCells } from '@data';
 import { TableComponent } from '@shared';
+import { GetStatusTitleForTask } from '@helpers';
 
 @Component({
   selector: 'task-list',
@@ -48,7 +49,7 @@ export class TaskListComponent implements OnChanges {
           },
           {
             id: lastCellId + 1,
-            value: item.status,
+            value: GetStatusTitleForTask(item.status),
             align: 'center',
             type: TableCellType.STATUS,
           },

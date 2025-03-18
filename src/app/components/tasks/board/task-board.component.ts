@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -15,12 +14,13 @@ import {
   DragDropModule,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { StatusTitlePipe } from '@shared';
 
 @Component({
   selector: 'task-board',
   templateUrl: './task-board.component.html',
   styleUrls: ['./task-board.component.scss'],
-  imports: [CommonModule, DragDropModule],
+  imports: [CommonModule, DragDropModule, StatusTitlePipe],
 })
 export class TaskBoardComponent implements OnChanges {
   @Input() taskList: ITaskItem[] = [];
@@ -28,17 +28,14 @@ export class TaskBoardComponent implements OnChanges {
 
   sections: ITaskSection[] = [
     {
-      title: 'Открыто',
       type: TaskStatus.OPENED,
       tasks: [],
     },
     {
-      title: 'В работе',
       type: TaskStatus.IN_PROGRESS,
       tasks: [],
     },
     {
-      title: 'Закрыто',
       type: TaskStatus.CLOSED,
       tasks: [],
     },

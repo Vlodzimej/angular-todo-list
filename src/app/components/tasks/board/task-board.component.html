@@ -8,7 +8,7 @@
   <div class="section" cdkDropList [cdkDropListData]="sections[index].tasks"
     [cdkDropListConnectedTo]="getOtherSectionsData(index)" (cdkDropListDropped)="drop($event)" [id]="section.type">
     <div class="status-card">
-      <p>{{ section.title }}</p>
+      <p>{{ section.type | statusTitle }}</p>
     </div>
     <div class="tasks-card">
       @for (taskItem of section.tasks; track taskItem.id) {
