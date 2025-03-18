@@ -1,23 +1,19 @@
 <div class="header">
-  <p class="title text-lg">
-    Текущие задачи
-  </p>
+  <p class="title text-lg">Текущие задачи</p>
 </div>
 
 @if (taskList.length > 0) {
-<div class="tasks-container">
-  @for (taskItem of taskList; track taskItem.id; let index = $index) {
-  <div class="content-block">
-    <p class="title">{{ taskItem.value }}</p>
-    <button class="success-button focused" (click)="handleClickStatusbutton(index)">{{ taskItem.status }}</button>
+  <div class="tasks-container">
+    @for (taskItem of taskList; track taskItem.id; let index = $index) {
+      <div class="content-block">
+        <p class="title">{{ taskItem.value }}</p>
+        <button class="success-button focused" (click)="handleClickStatusbutton(index)">{{ taskItem.status }}</button>
+      </div>
+    }
   </div>
-  }
-</div>
 }
 @if (taskList.length === 0) {
-<div class="placeholder">
-  <p>
-    Список задач пуст
-  </p>
-</div>
+  <div class="placeholder">
+    <p>Список задач пуст</p>
+  </div>
 }

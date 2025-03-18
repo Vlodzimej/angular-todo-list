@@ -7,7 +7,7 @@ import {
   TaskListComponent,
   TaskBoardComponent,
   TaskSmallListComponent,
-  TaskDetailsComponent
+  TaskDetailsComponent,
 } from '@components';
 import { TaskStatuses } from '@data';
 import { TaskStatus } from '@enums';
@@ -62,33 +62,31 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     // Подписываемся на событие изменения списка задач. При изменении производим сортировку и обновление счетчиков задач по статусам
-    this.taskList$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((taskItems) => {
-        this.taskList = this.sortTaskItems(taskItems);
-        this.refreshTaskStatusesInfo(taskItems);
-      });
+    this.taskList$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(taskItems => {
+      this.taskList = this.sortTaskItems(taskItems);
+      this.refreshTaskStatusesInfo(taskItems);
+    });
 
-    // Получение списка задач 
+    // Получение списка задач
     this.taskService
       .fetchTasks()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((data) => {
+      .subscribe(data => {
         this.taskList$.next(data);
       });
   }
 
   /**
    * Обновление счетчиков задач по статусам
-   * @param taskList 
+   * @param taskList
    */
   refreshTaskStatusesInfo(taskList: ITaskItem[]) {
-    this.taskStatusItems = TaskStatuses.map((status) => ({
+    this.taskStatusItems = TaskStatuses.map(status => ({
       ...status,
       count: 0,
     }));
 
-    taskList.forEach((taskItem) => {
+    taskList.forEach(taskItem => {
       let indexToIncrement;
       switch (taskItem.status) {
         case TaskStatus.CLOSED:
@@ -115,11 +113,9 @@ export class MainComponent implements OnInit {
    */
   handleMoreButtonClick() {
     this.currentItemsNumberToShow =
-      this.currentItemsNumberToShow == MinTaskItemsNumberToShow
-        ? this.taskList.length
-        : MinTaskItemsNumberToShow;
+      this.currentItemsNumberToShow == MinTaskItemsNumberToShow ? this.taskList.length : MinTaskItemsNumberToShow;
     if (this.currentItemsNumberToShow == MinTaskItemsNumberToShow) {
-      this.scrollToTaskList();  
+      this.scrollToTaskList();
     }
   }
 
@@ -164,12 +160,10 @@ export class MainComponent implements OnInit {
       .removeTaskById(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (idToRemove) => {
-          this.taskList$.next(
-            this.taskList.filter((taskItem) => taskItem.id != idToRemove)
-          );
+        next: idToRemove => {
+          this.taskList$.next(this.taskList.filter(taskItem => taskItem.id != idToRemove));
         },
-        error: (error) => {
+        error: error => {
           console.error(error);
           this.alertService.showAlert('Ошибка при удалении записи');
         },
@@ -179,12 +173,10 @@ export class MainComponent implements OnInit {
   /**
    * Обновление задачи
    * @param changedTaskItem - изменённая задача
-   * @returns 
+   * @returns
    */
   private updateTask(changedTaskItem: ITaskItem) {
-    const indexToUpdate = this.taskList.findIndex(
-      (taskItem) => taskItem.id === changedTaskItem.id
-    );
+    const indexToUpdate = this.taskList.findIndex(taskItem => taskItem.id === changedTaskItem.id);
 
     if (indexToUpdate == -1) {
       this.alertService.showAlert('Запись не найдена');
@@ -195,14 +187,12 @@ export class MainComponent implements OnInit {
       .updateTask(changedTaskItem)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (taskItem) => {
-          const newTaskList = this.taskList.filter(
-            (taskItem) => taskItem.id != changedTaskItem.id
-          );
+        next: taskItem => {
+          const newTaskList = this.taskList.filter(taskItem => taskItem.id != changedTaskItem.id);
           newTaskList.splice(indexToUpdate, 0, taskItem);
           this.taskList$.next(newTaskList);
         },
-        error: (error) => {
+        error: error => {
           console.error(error);
           this.alertService.showAlert('Ошибка при обновлении записи');
         },
@@ -212,7 +202,7 @@ export class MainComponent implements OnInit {
   /**
    * Сортировка задач
    * @param taskItems - неотсортированный список задач
-   * @returns 
+   * @returns
    */
   private sortTaskItems(taskItems: ITaskItem[]): ITaskItem[] {
     return taskItems.sort((a, b) => {

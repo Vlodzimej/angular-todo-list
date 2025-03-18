@@ -30,14 +30,14 @@ export class TaskService {
 
   /** Получение списка задач */
   fetchTasks(): Observable<ITaskItem[]> {
-    return from(this.dbPromise.then((db) => db.getAll(StoreName))).pipe(
-      map((tasks) =>
-        tasks.map((task) => ({
+    return from(this.dbPromise.then(db => db.getAll(StoreName))).pipe(
+      map(tasks =>
+        tasks.map(task => ({
           ...task,
           id: Number(task.id),
         }))
       ),
-      catchError((error) => {
+      catchError(error => {
         console.error('Error fetching tasks:', error);
         throw new Error('Failed to fetch tasks');
       })
@@ -53,9 +53,7 @@ export class TaskService {
     }
 
     if (trimmedValue.length > this.maxTaskValueLength) {
-      throw new Error(
-        `Task value cannot exceed ${this.maxTaskValueLength} characters`
-      );
+      throw new Error(`Task value cannot exceed ${this.maxTaskValueLength} characters`);
     }
 
     const newTaskItem: Omit<ITaskItem, 'id'> = {
@@ -63,17 +61,15 @@ export class TaskService {
       status: TaskStatus.OPENED,
     };
 
-    return from(
-      this.dbPromise.then((db) => db.add(StoreName, newTaskItem))
-    ).pipe(
-      map((id) => {
+    return from(this.dbPromise.then(db => db.add(StoreName, newTaskItem))).pipe(
+      map(id => {
         const task: ITaskItem = {
           ...newTaskItem,
           id: Number(id),
         };
         return task;
       }),
-      catchError((error) => {
+      catchError(error => {
         console.error('Error adding task:', error);
         throw new Error('Failed to add task');
       })
@@ -90,11 +86,9 @@ export class TaskService {
       return throwError(() => new Error('Task ID is missing or invalid'));
     }
 
-    return from(
-      this.dbPromise.then((db) => db.put(StoreName, taskItem))
-    ).pipe(
+    return from(this.dbPromise.then(db => db.put(StoreName, taskItem))).pipe(
       map(() => taskItem),
-      catchError((error) => {
+      catchError(error => {
         console.error('Error updating task:', error);
         throw new Error('Failed to update task');
       })
@@ -103,11 +97,9 @@ export class TaskService {
 
   /** Удаление задачи по идентификатору */
   removeTaskById(id: number): Observable<number> {
-    return from(
-      this.dbPromise.then((db) => db.delete(StoreName, id))
-    ).pipe(
+    return from(this.dbPromise.then(db => db.delete(StoreName, id))).pipe(
       map(() => id),
-      catchError((error) => {
+      catchError(error => {
         console.error('Error deleting task:', error);
         throw new Error('Failed to delete task');
       })

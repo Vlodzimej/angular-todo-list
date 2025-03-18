@@ -1,82 +1,82 @@
-@use "sass-rem" as rem;
-@use "variables";
-@use "fonts";
+@use 'sass-rem' as rem;
+@use 'variables';
+@use 'fonts';
 
 :host {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 
-    .main-container {
-        @media (min-width: variables.$laptopMinWidth) {
-            width: rem.convert(1200px);
-        }
-
-        @media (min-width: variables.$tabletMinWidth) and (max-width: variables.$tabletMaxWidth) {
-            width: rem.convert(640px);
-        }
-
-        @media (min-width: variables.$phoneMinWidth) and (max-width: variables.$phoneMinWidth) {
-            width: rem.convert(343px);
-        }
-
-        .header {
-            margin-top: rem.convert(64px);
-            margin-bottom: rem.convert(48px);
-            font-weight: variables.$font-weight-bold;
-            justify-content: left;
-            
-            // tablet
-            @media (min-width: variables.$tabletMinWidth) and (max-width: variables.$tabletMaxWidth) {
-                margin-top: rem.convert(48px);
-                margin-bottom: rem.convert(40px);
-            }
-
-            // phone
-            @media (min-width: variables.$phoneMinWidth) and (max-width: variables.$phoneMinWidth) {
-                margin-top: rem.convert(32px);
-                margin-bottom: rem.convert(32px);
-            }
-
-            .title {
-                @include fonts.responsive-text-class(
-                    $class: "text-lg",
-                    $desktop-class: "text-xxl",
-                    $laptop-class: "text-xxl",
-                    $tablet-class: "text-xl",
-                    $phone-class: "text-lg"
-                );
-            }
-        }
-
-        .content {
-            display: flex;
-            flex-wrap: wrap;
-
-            @media (min-width: variables.$laptopMinWidth) {
-                row-gap: rem.convert(40px);
-            }
-            @media (max-width: variables.$tabletMaxWidth) {
-                row-gap: rem.convert(40px);
-                flex-direction: column;
-            }
-
-            @media (min-width: variables.$phoneMinWidth) and (max-width: variables.$phoneMinWidth) {
-                row-gap: 24px;
-            }
-        }
-
-        .more-button-container {
-            display: flex;
-            justify-content: center;
-            margin: rem.convert(24px 0);
-            @media (min-width: variables.$laptopMinWidth) {
-                margin: rem.convert(40px 0);
-            }
-            @media (min-width: variables.$tabletMinWidth) and (max-width: variables.$tabletMaxWidth) {
-                margin: rem.convert(32px 0);
-            }
-        }
+  .main-container {
+    @media (min-width: variables.$laptopMinWidth) {
+      width: rem.convert(1200px);
     }
+
+    @media (min-width: variables.$tabletMinWidth) and (max-width: variables.$tabletMaxWidth) {
+      width: rem.convert(640px);
+    }
+
+    @media (min-width: variables.$phoneMinWidth) and (max-width: variables.$phoneMinWidth) {
+      width: rem.convert(343px);
+    }
+
+    .header {
+      margin-top: rem.convert(64px);
+      margin-bottom: rem.convert(48px);
+      font-weight: variables.$font-weight-bold;
+      justify-content: left;
+
+      // tablet
+      @media (min-width: variables.$tabletMinWidth) and (max-width: variables.$tabletMaxWidth) {
+        margin-top: rem.convert(48px);
+        margin-bottom: rem.convert(40px);
+      }
+
+      // phone
+      @media (min-width: variables.$phoneMinWidth) and (max-width: variables.$phoneMinWidth) {
+        margin-top: rem.convert(32px);
+        margin-bottom: rem.convert(32px);
+      }
+
+      .title {
+        @include fonts.responsive-text-class(
+          $class: 'text-lg',
+          $desktop-class: 'text-xxl',
+          $laptop-class: 'text-xxl',
+          $tablet-class: 'text-xl',
+          $phone-class: 'text-lg'
+        );
+      }
+    }
+
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+
+      @media (min-width: variables.$laptopMinWidth) {
+        row-gap: rem.convert(40px);
+      }
+      @media (max-width: variables.$tabletMaxWidth) {
+        row-gap: rem.convert(40px);
+        flex-direction: column;
+      }
+
+      @media (min-width: variables.$phoneMinWidth) and (max-width: variables.$phoneMinWidth) {
+        row-gap: 24px;
+      }
+    }
+
+    .more-button-container {
+      display: flex;
+      justify-content: center;
+      margin: rem.convert(24px 0);
+      @media (min-width: variables.$laptopMinWidth) {
+        margin: rem.convert(40px 0);
+      }
+      @media (min-width: variables.$tabletMinWidth) and (max-width: variables.$tabletMaxWidth) {
+        margin: rem.convert(32px 0);
+      }
+    }
+  }
 }

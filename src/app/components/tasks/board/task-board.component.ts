@@ -1,19 +1,8 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { TaskStatus } from '@enums';
 import { ITaskItem, ITaskSection } from '@models';
-import {
-  CdkDragDrop,
-  DragDropModule,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, transferArrayItem } from '@angular/cdk/drag-drop';
 import { StatusTitlePipe } from '@shared';
 import { TaskSectionsBlank } from '@data';
 
@@ -42,19 +31,13 @@ export class TaskBoardComponent implements OnChanges {
    * @param taskList - отсортированный список задач
    */
   private fillTaskSections(taskList: ITaskItem[]) {
-    this.sections = this.sections.map((section) => ({ ...section, tasks: [] }));
+    this.sections = this.sections.map(section => ({ ...section, tasks: [] }));
 
-    const openedTaskSectionIndex = this.sections.findIndex(
-      (section) => section.type == TaskStatus.OPENED
-    );
-    const inProgressTaskSectionIndex = this.sections.findIndex(
-      (section) => section.type == TaskStatus.IN_PROGRESS
-    );
-    const closedTaskSectionIndex = this.sections.findIndex(
-      (section) => section.type == TaskStatus.CLOSED
-    );
+    const openedTaskSectionIndex = this.sections.findIndex(section => section.type == TaskStatus.OPENED);
+    const inProgressTaskSectionIndex = this.sections.findIndex(section => section.type == TaskStatus.IN_PROGRESS);
+    const closedTaskSectionIndex = this.sections.findIndex(section => section.type == TaskStatus.CLOSED);
 
-    taskList.forEach((taskItem) => {
+    taskList.forEach(taskItem => {
       switch (taskItem.status) {
         case TaskStatus.OPENED:
           this.sections[openedTaskSectionIndex].tasks.push(taskItem);
@@ -73,21 +56,14 @@ export class TaskBoardComponent implements OnChanges {
 
   /**
    * Обработчик перемещения задачи между секциями
-   * @param event 
+   * @param event
    */
   handleTaskDrop(event: CdkDragDrop<ITaskItem[]>) {
     if (event.previousContainer !== event.container) {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
 
       const task = event.container.data[event.currentIndex];
-      const newStatus = this.sections.find(
-        (section) => section.tasks === event.container.data
-      )?.type;
+      const newStatus = this.sections.find(section => section.tasks === event.container.data)?.type;
 
       if (newStatus) {
         task.status = newStatus;
@@ -99,11 +75,9 @@ export class TaskBoardComponent implements OnChanges {
   /**
    * Получение всех секций исключая указанную секцию
    * @param indexToExclude - индекс секции для исключения из результата
-   * @returns 
+   * @returns
    */
   getOtherSectionsData(indexToExclude: number): string[] {
-    return this.sections
-      .filter((_, index) => index !== indexToExclude)
-      .map((section) => section.type);
+    return this.sections.filter((_, index) => index !== indexToExclude).map(section => section.type);
   }
 }

@@ -45,11 +45,11 @@ export class TaskCreationComponent {
       .addTask(text)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (result) => {
+        next: result => {
           this.addTaskEvent.emit(result);
           this.taskValueInput.setValue('');
         },
-        error: (error) => {
+        error: error => {
           console.error(error);
           this.alertService.showAlert('Ошибка при добавлении записи');
         },

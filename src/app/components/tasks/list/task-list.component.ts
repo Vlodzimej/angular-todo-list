@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { ITableCell, ITableModel, ITableRow, ITaskItem } from '@models';
 import { TableCellType } from '@enums';
 import { TodoTableHeaderCells } from '@data';
@@ -39,7 +32,7 @@ export class TaskListComponent implements OnChanges {
     let lastCellId = TodoTableHeaderCells.length + 1;
     let lastRowId = 0;
 
-    const dataRows: ITableRow[] = tasks.map((item) => {
+    const dataRows: ITableRow[] = tasks.map(item => {
       {
         const cells: ITableCell[] = [
           {

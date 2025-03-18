@@ -1,49 +1,49 @@
-@use "sass-rem" as rem;
-@use "variables";
-@use "forms";
+@use 'sass-rem' as rem;
+@use 'variables';
+@use 'forms';
 
 :host {
-    flex-basis: 50%;
-    padding-left: rem.convert(13px);
-    // tablet, phone
-    @media (max-width: variables.$tabletMaxWidth) {
+  flex-basis: 50%;
+  padding-left: rem.convert(13px);
+  // tablet, phone
+  @media (max-width: variables.$tabletMaxWidth) {
+    padding: 0;
+  }
+
+  .form-container {
+    .add-button {
+      background-image: url('/assets/svg/add_button.svg');
+      width: rem.convert(44px);
+      height: rem.convert(44px);
+      margin-right: rem.convert(15px);
+    }
+
+    .input-container {
+      position: relative;
+      display: flex;
+      flex-grow: 1;
+
+      .clear-button {
+        width: rem.convert(20px);
+        height: rem.convert(20px);
+        position: absolute;
+        right: rem.convert(8px);
+        top: 50%;
+        transform: translateY(-50%);
+        background-image: url('assets/svg/reset_button.svg');
+        cursor: pointer;
+        display: none;
         padding: 0;
+        margin: 0;
+
+        @media (max-width: variables.$tabletMaxWidth) {
+          display: block;
+        }
+      }
     }
 
-    .form-container {
-        .add-button {
-            background-image: url("/assets/svg/add_button.svg");
-            width: rem.convert(44px);
-            height: rem.convert(44px);
-            margin-right: rem.convert(15px);
-        }
-
-        .input-container {
-            position: relative;
-            display: flex;
-            flex-grow: 1;
-
-            .clear-button {
-                width: rem.convert(20px);
-                height: rem.convert(20px);
-                position: absolute;
-                right: rem.convert(8px);
-                top: 50%;
-                transform: translateY(-50%);
-                background-image: url("assets/svg/reset_button.svg");
-                cursor: pointer;
-                display: none;
-                padding: 0;
-                margin: 0;
-
-                @media (max-width: variables.$tabletMaxWidth) {
-                    display: block;
-                }
-            }
-        }
-
-        .input-container:hover .clear-button {
-            display: block;
-        }
+    .input-container:hover .clear-button {
+      display: block;
     }
+  }
 }

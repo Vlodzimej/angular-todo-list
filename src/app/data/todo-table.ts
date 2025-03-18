@@ -14,6 +14,6 @@ export const TodoTableHeaderCells: ITableCell[] = [
     value: 'Статус',
     align: 'center',
     type: TableCellType.TEXT,
-    size: '102px'
+    size: '102px',
   },
 ];

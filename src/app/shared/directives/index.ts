@@ -1,1 +1,1 @@
-export * from "./show-on-device.directive";
+export * from './show-on-device.directive';

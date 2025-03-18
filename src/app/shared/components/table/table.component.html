@@ -1,31 +1,32 @@
 @if (data.rows.length > 1) {
-@for (row of (data.rows| limitTo: limit + 1); track row.id; let index = $index; let first = $first; let last = $last) {
-<div class="row-wrapper" [ngClass]="{'title': first, 'last': last}">
-  <div class="row">
-    @for (cell of row.cells; track cell.id) {
-    <div [ngStyle]="{'flex-basis': cell.size, 'justify-items': cell.align}">
-      <ng-container [ngSwitch]="cell.type">
-        <div *ngSwitchCase="tableCellType.TEXT">
-          <div [ngClass]="{'column-title': first}">
-            {{cell.value}}
+  @for (row of data.rows | limitTo: limit + 1; track row.id; let index = $index; let first = $first; let last = $last) {
+    <div class="row-wrapper" [ngClass]="{ title: first, last: last }">
+      <div class="row">
+        @for (cell of row.cells; track cell.id) {
+          <div [ngStyle]="{ 'flex-basis': cell.size, 'justify-items': cell.align }">
+            <ng-container [ngSwitch]="cell.type">
+              <div *ngSwitchCase="tableCellType.TEXT">
+                <div [ngClass]="{ 'column-title': first }">
+                  {{ cell.value }}
+                </div>
+              </div>
+              <div *ngSwitchCase="tableCellType.STATUS">
+                <button class="info-button" (click)="handleClickStatusButton(index)">
+                  {{ cell.value }}
+                </button>
+              </div>
+            </ng-container>
           </div>
-        </div>
-        <div *ngSwitchCase="tableCellType.STATUS">
-          <button class="info-button" (click)="handleClickStatusButton(index)">
-            {{cell.value}}
-          </button>
-        </div>
-      </ng-container>
+        }
+      </div>
+      @if (!first && !last) {
+        <div class="divider"></div>
+      }
     </div>
-    }
-  </div>
-  @if (!first && !last) {
-  <div class="divider"></div>
   }
-</div>
-}}
+}
 @if (data.rows.length === 1) {
-<div class="placeholder">
-  <p>{{ placeholder }}</p>
-</div>
+  <div class="placeholder">
+    <p>{{ placeholder }}</p>
+  </div>
 }

@@ -1,12 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-@use "scss-reset";
-@use "./assets/scss/main";
-@use "./assets/scss/variables";
+@use 'scss-reset';
+@use './assets/scss/main';
+@use './assets/scss/variables';
 
 :root {
-    font-family: "Montserrat";
+  font-family: 'Montserrat';
 }
 
 body {
-    background-color: variables.$background-secondary;
+  background-color: variables.$background-secondary;
 }

@@ -45,7 +45,7 @@ export class TaskDetailsComponent {
     },
   ];
 
-    /** Модель списка кнопок изменения статуса задачи, если задача в статусе CLOSED */
+  /** Модель списка кнопок изменения статуса задачи, если задача в статусе CLOSED */
   private statusButtonsForClosedTask: TStatusButton[] = [
     {
       title: 'Переоткрыть',
@@ -62,10 +62,7 @@ export class TaskDetailsComponent {
     this.taskItem = taskItem;
     this.currentStatus = taskItem.status;
     this.taskValueInput.setValue(taskItem.value);
-    this.statusButtons =
-      taskItem.status == TaskStatus.CLOSED
-        ? this.statusButtonsForClosedTask
-        : this.allStatusButtons;
+    this.statusButtons = taskItem.status == TaskStatus.CLOSED ? this.statusButtonsForClosedTask : this.allStatusButtons;
 
     this.popup.show();
   }
@@ -91,9 +88,7 @@ export class TaskDetailsComponent {
       this.updateTaskItemOutput.emit(changedTaskItem);
       this.popup.dismiss();
     } else {
-      this.alertService.showAlert(
-        `Задача уже находится в статусе ${newStatus}`
-      );
+      this.alertService.showAlert(`Задача уже находится в статусе ${newStatus}`);
     }
   }
 

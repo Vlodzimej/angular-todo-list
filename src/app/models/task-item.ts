@@ -8,4 +8,3 @@ export interface ITaskItem {
   value: string;
   status: TaskStatus;
 }
-

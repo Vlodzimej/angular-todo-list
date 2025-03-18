@@ -1,12 +1,12 @@
 <popup title="Изменение задачи">
   <div class="form-container">
-    <input type="text" class="text-input" [formControl]="taskValueInput">
+    <input type="text" class="text-input" [formControl]="taskValueInput" />
   </div>
   <div class="status-buttons-container">
     @for (statusButton of statusButtons; track statusButton.title) {
-    <button class="info-button" (click)="statusButton.action()">
-      {{statusButton.title}}
-    </button>
+      <button class="info-button" (click)="statusButton.action()">
+        {{ statusButton.title }}
+      </button>
     }
   </div>
   <div class="task-button-container">

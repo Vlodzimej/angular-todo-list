@@ -4,11 +4,14 @@ import { Directive, ElementRef, Renderer2, OnInit, OnDestroy, Input } from '@ang
   selector: '[appShowOnDevice]',
 })
 export class ShowOnDeviceDirective implements OnInit, OnDestroy {
-  @Input() minWidth: number | null = null; 
+  @Input() minWidth: number | null = null;
   @Input() maxWidth: number | null = null;
   @Input() display = 'block';
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) {}
 
   ngOnInit() {
     this.checkScreenWidth();
@@ -22,9 +25,7 @@ export class ShowOnDeviceDirective implements OnInit, OnDestroy {
   private checkScreenWidth() {
     const screenWidth = window.innerWidth;
 
-    const isVisible =
-      (this.minWidth === null || screenWidth >= this.minWidth) &&
-      (this.maxWidth === null || screenWidth <= this.maxWidth);
+    const isVisible = (this.minWidth === null || screenWidth >= this.minWidth) && (this.maxWidth === null || screenWidth <= this.maxWidth);
 
     if (isVisible) {
       this.renderer.setStyle(this.el.nativeElement, 'display', this.display);

@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ITableRow } from '@models';
 
 @Pipe({
-  name: 'limitTo'
+  name: 'limitTo',
 })
 export class LimitToPipe implements PipeTransform {
   transform(value: ITableRow[], limit: number): ITableRow[] {

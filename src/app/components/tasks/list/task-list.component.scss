@@ -1,10 +1,10 @@
-@use "sass-rem" as rem;
-@use "fonts";
+@use 'sass-rem' as rem;
+@use 'fonts';
 
 :host {
-    flex-basis: 100%;
+  flex-basis: 100%;
 
-    .content-block {
-        padding: rem.convert(24px 40px 40px 40px);
-    }
+  .content-block {
+    padding: rem.convert(24px 40px 40px 40px);
+  }
 }

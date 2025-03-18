@@ -6,16 +6,16 @@ export const TaskStatuses: ITaskStatusItem[] = [
   {
     type: TaskStatus.CLOSED,
     count: 0,
-    icon: "task_status_closed",
+    icon: 'task_status_closed',
   },
   {
     type: TaskStatus.IN_PROGRESS,
     count: 0,
-    icon: "task_status_in_progress",
+    icon: 'task_status_in_progress',
   },
   {
     type: TaskStatus.OPENED,
     count: 0,
-    icon: "task_status_opened",
+    icon: 'task_status_opened',
   },
 ];

@@ -1,13 +1,13 @@
 @if (isVisible) {
-<div class="popup-overlay" (keyup)="handleOverlayClick($event)" tabindex="0">
-  <div class="popup-content" (keyup)="handleContentClick($event)" tabindex="1">
-    <div class="header" [ngClass]="{'no-close-button': !isCloseButtonVisible}">
-      <p class="title">{{ title }}</p>
-      @if (isCloseButtonVisible) {
-      <button class="close-button" (click)="handleCloseButtonClick()"> </button>
-      }
+  <div class="popup-overlay" (keyup)="handleOverlayClick($event)" tabindex="0">
+    <div class="popup-content" (keyup)="handleContentClick($event)" tabindex="1">
+      <div class="header" [ngClass]="{ 'no-close-button': !isCloseButtonVisible }">
+        <p class="title">{{ title }}</p>
+        @if (isCloseButtonVisible) {
+          <button class="close-button" (click)="handleCloseButtonClick()"></button>
+        }
+      </div>
+      <ng-content></ng-content>
     </div>
-    <ng-content></ng-content>
   </div>
-</div>
 }

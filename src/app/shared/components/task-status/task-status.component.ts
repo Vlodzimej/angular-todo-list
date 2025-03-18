@@ -6,8 +6,8 @@ import { StatusTitlePipe } from 'app/shared/pipes';
   selector: 'app-task-status',
   templateUrl: './task-status.component.html',
   styleUrls: ['./task-status.component.scss'],
-  imports: [StatusTitlePipe]
+  imports: [StatusTitlePipe],
 })
 export class TaskCategoryComponent {
-  @Input() model!: ITaskStatusItem
+  @Input() model!: ITaskStatusItem;
 }

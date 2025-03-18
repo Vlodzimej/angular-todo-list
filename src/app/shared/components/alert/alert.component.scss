@@ -1,15 +1,14 @@
-
-@use "sass-rem" as rem;
+@use 'sass-rem' as rem;
 
 .content {
-    justify-items: center;
+  justify-items: center;
 }
 
 .footer {
-    display: flex;
-    justify-content: center;
-    margin-top: rem.convert(24px);
-    button {
-        padding: (8px 16px);
-    }
+  display: flex;
+  justify-content: center;
+  margin-top: rem.convert(24px);
+  button {
+    padding: (8px 16px);
+  }
 }

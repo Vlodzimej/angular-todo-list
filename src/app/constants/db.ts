@@ -1,2 +1,2 @@
-export const DataBaseName = "TODOListDB";
-export const StoreName = "tasks";
+export const DataBaseName = 'TODOListDB';
+export const StoreName = 'tasks';
