@@ -1,6 +1,7 @@
 import { TaskStatus } from '@enums';
 import { ITaskStatusItem } from '@models';
 
+/** Шаблон для счетчиков задач по статусам */
 export const TaskStatuses: ITaskStatusItem[] = [
   {
     type: TaskStatus.CLOSED,

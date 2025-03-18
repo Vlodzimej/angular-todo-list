@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { MainComponent } from './components/main/main.component';
 import { AlertComponent } from '@shared';
 import { AlertService } from '@services';
+import { MainComponent } from '@pages';
 
 @Component({
   selector: 'app-root',

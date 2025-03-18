@@ -1,6 +1,7 @@
 import { TableCellType } from '@enums';
 import { ITableCell } from '@models';
 
+/** Данные для ячеек хейдера таблицы задач */
 export const TodoTableHeaderCells: ITableCell[] = [
   {
     id: 0,

@@ -10,12 +10,13 @@ import {
   TaskDetailsComponent
 } from '@components';
 import { TaskStatuses } from '@data';
-import { GetStatusPriority, TaskStatus } from '@enums';
+import { TaskStatus } from '@enums';
 import { ITaskItem, ITaskStatusItem } from '@models';
 import { AlertService, TaskService } from '@services';
 import { Subject } from 'rxjs';
 import { ShowOnDeviceDirective } from '@shared';
 import { MinTaskItemsNumberToShow, Resolutions } from '@constants';
+import { GetStatusPriority } from '@helpers';
 
 @Component({
   selector: 'todo-main',
@@ -60,7 +61,7 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Подписываемся на событие изменения списка залач, производим сортировку и обновления счетчиков задач по статусам
+    // Подписываемся на событие изменения списка задач. При изменении производим сортировку и обновление счетчиков задач по статусам
     this.taskList$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((taskItems) => {

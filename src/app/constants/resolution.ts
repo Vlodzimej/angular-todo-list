@@ -1,3 +1,4 @@
+/** Брейкпоинты */
 export const Resolutions = {
   desktop: {
     minWidth: 1221,
