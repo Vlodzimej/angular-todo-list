@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   TaskStatusesInfoComponent,
@@ -32,8 +32,9 @@ import { Resolutions } from '@constants';
     ShowOnDeviceDirective,
   ],
 })
-export class MainComponent implements OnInit {
-  @ViewChild(TaskDetailsComponent) taskDetailsPopup!: TaskDetailsComponent;
+export class MainComponent implements OnInit, AfterViewInit {
+  @ViewChild(TaskDetailsComponent) taskDetailsPopup?: TaskDetailsComponent;
+  @ViewChild(TaskListComponent, { read: ElementRef }) taskListElement?: ElementRef;
 
   resolutions = Resolutions;
 
@@ -52,6 +53,10 @@ export class MainComponent implements OnInit {
     private alertService: AlertService,
     private destroyRef: DestroyRef
   ) {}
+
+  ngAfterViewInit(): void {
+    console.log(this.taskListElement); // Проверьте, что элемент существует
+  }
 
   ngOnInit() {
     this.taskList$
@@ -103,6 +108,9 @@ export class MainComponent implements OnInit {
       this.currentItemsNumberToShow == this.minItemsNumberToShow
         ? this.taskList.length
         : this.minItemsNumberToShow;
+    if (this.currentItemsNumberToShow == this.minItemsNumberToShow) {
+      this.scrollToTaskList();  
+    }
   }
 
   handleAddTaskEvent(newTaskItem: ITaskItem) {
@@ -110,7 +118,7 @@ export class MainComponent implements OnInit {
   }
 
   handleShowTaskDetails(index: number) {
-    this.taskDetailsPopup.open(this.taskList[index]);
+    this.taskDetailsPopup?.open(this.taskList[index]);
   }
 
   handleUpdateTaskItem(taskItem: ITaskItem) {
@@ -177,5 +185,11 @@ export class MainComponent implements OnInit {
 
       return b.id - a.id;
     });
+  }
+
+  private scrollToTaskList() {
+    if (this.taskListElement && this.taskListElement.nativeElement) {
+      this.taskListElement.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }

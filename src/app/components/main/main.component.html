@@ -7,7 +7,7 @@
     <task-statuses-info [taskStatusItems]="taskStatusItems"></task-statuses-info>
 
     <task-creation (addTaskEvent)="handleAddTaskEvent($event)"></task-creation>
-
+    
     <task-list [taskList]="taskList" [itemsCountToShow]="currentItemsNumberToShow"
       (showTaskDetails)="handleShowTaskDetails($event)" appShowOnDevice
       [minWidth]="resolutions.tablet.minWidth"></task-list>
